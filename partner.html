@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>協力会社開拓 営業マニュアル</title>
+<style>
+  :root{
+    --bg:#f3f6fa;
+    --paper:#ffffff;
+    --ink:#172033;
+    --sub:#5f6b7c;
+    --line:#dfe5ec;
+    --navy:#12233f;
+    --navy-2:#1d3558;
+    --teal:#0f8f83;
+    --teal-soft:#e6f7f4;
+    --blue:#2767d8;
+    --blue-soft:#edf4ff;
+    --orange:#d86d22;
+    --orange-soft:#fff2e8;
+    --green:#16865d;
+    --green-soft:#eaf8f1;
+    --red:#bf3b42;
+    --red-soft:#fff0f1;
+    --yellow:#a96c00;
+    --yellow-soft:#fff8df;
+    --shadow:0 12px 34px rgba(29,46,74,.10);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit}
+  .page{max-width:1000px;margin:0 auto;padding:24px 18px 70px}
+  .topbar{
+    position:sticky;top:10px;z-index:20;margin:0 auto 14px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 12px;border:1px solid rgba(223,229,236,.95);border-radius:14px;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:0 8px 25px rgba(28,44,70,.08)
+  }
+  .topbar .name{font-weight:800;font-size:13px;color:var(--navy)}
+  .topbar .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{
+    border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;
+    padding:7px 11px;font-size:12px;font-weight:800;cursor:pointer;transition:.18s ease
+  }
+  .btn:hover{transform:translateY(-1px);border-color:#b8c3d2}
+  .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+  .hero{
+    position:relative;overflow:hidden;border-radius:24px;padding:34px 34px 30px;
+    color:#fff;background:linear-gradient(135deg,#10213d 0%,#1b3d68 62%,#0f8f83 135%);
+    box-shadow:0 18px 50px rgba(17,35,62,.26)
+  }
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.07)}
+  .hero::before{width:280px;height:280px;right:-110px;top:-150px}
+  .hero::after{width:190px;height:190px;right:100px;bottom:-145px}
+  .hero-inner{position:relative;z-index:1}
+  .eyebrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.03em}
+  .pill.white{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff}
+  .pill.teal{background:var(--teal-soft);color:#08756b}
+  .pill.orange{background:var(--orange-soft);color:#a84b0f}
+  .hero h1{margin:15px 0 8px;font-size:clamp(27px,4vw,39px);line-height:1.3;letter-spacing:.01em}
+  .hero p{max-width:740px;margin:0;color:#dce7f4;font-size:15px}
+  .hero-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+  .hero-meta .meta{padding:9px 12px;border-radius:11px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);font-size:12px}
+  .hero-meta b{display:block;color:#fff;font-size:13px}
+  .section{margin-top:32px}
+  .section-title{display:flex;align-items:center;gap:12px;margin:0 0 13px}
+  .section-title .icon{
+    flex:0 0 auto;width:37px;height:37px;border-radius:12px;display:grid;place-items:center;
+    background:var(--navy);color:#fff;font-weight:900;font-size:15px;box-shadow:0 5px 12px rgba(18,35,63,.18)
+  }
+  .section-title h2{margin:0;font-size:21px;line-height:1.35;color:var(--navy)}
+  .section-title p{margin:2px 0 0;color:var(--sub);font-size:13px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 2px 6px rgba(24,38,61,.04);padding:22px}
+  .mission{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}
+  .mission-main{padding:25px;border-radius:16px;background:linear-gradient(135deg,var(--teal-soft),#f5fffd);border:1px solid #c5eae4}
+  .mission-main .small{color:#08756b;font-weight:900;font-size:12px;letter-spacing:.08em}
+  .mission-main h3{margin:7px 0 10px;font-size:24px;line-height:1.45;color:#0a4f49}
+  .mission-main h3 strong{display:inline-block;background:var(--teal);color:#fff;border-radius:8px;padding:1px 8px;white-space:nowrap}
+  .mission-main p{margin:0;color:#37615d;font-size:13px}
+  .mission-side{display:grid;gap:10px}
+  .mini-rule{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:#fff}
+  .mini-rule .num{flex:0 0 auto;width:28px;height:28px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:900;font-size:12px}
+  .mini-rule b{display:block;color:var(--navy);margin-bottom:1px}
+  .mini-rule span{display:block;color:var(--sub);font-size:12px;line-height:1.55}
+  .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .quick-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:15px;padding:18px;background:#fff}
+  .quick-card::after{content:attr(data-num);position:absolute;right:10px;top:-8px;font-size:64px;font-weight:900;color:#eff3f8;line-height:1}
+  .quick-card .emoji{font-size:28px;position:relative;z-index:1}
+  .quick-card h3{position:relative;z-index:1;margin:7px 0 5px;font-size:16px;color:var(--navy)}
+  .quick-card p{position:relative;z-index:1;margin:0;color:var(--sub);font-size:13px}
+  .notice{border-radius:13px;padding:14px 16px;font-size:13px;margin-top:12px}
+  .notice.warn{background:var(--yellow-soft);border:1px solid #edd99a;color:#765000}
+  .notice.red{background:var(--red-soft);border:1px solid #f0c9cc;color:#812b31}
+  .notice.green{background:var(--green-soft);border:1px solid #c7e8d8;color:#0d6645}
+  .notice b{color:inherit}
+  .prep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .check-item{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}
+  .check-item .check{width:25px;height:25px;border-radius:8px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:900;flex:0 0 auto}
+  .check-item b{display:block;color:var(--navy)}
+  .check-item span{display:block;color:var(--sub);font-size:12px;line-height:1.55}
+  .flow-wrap{background:linear-gradient(180deg,#f9fbfe,#f4f7fb);border:1px solid var(--line);border-radius:18px;padding:20px}
+  .flow-title{text-align:center;margin:0 0 18px;font-weight:900;color:var(--navy)}
+  .workflow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:stretch}
+  .work-step{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;min-height:142px}
+  .work-step:not(:last-child)::after{content:"›";position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:2;width:20px;height:30px;display:grid;place-items:center;color:#a9b4c3;font-size:25px;font-weight:900}
+  .work-step .who{display:inline-block;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;margin-bottom:8px}
+  .who.us{background:var(--blue-soft);color:var(--blue)}
+  .who.partner{background:var(--orange-soft);color:var(--orange)}
+  .who.customer{background:var(--green-soft);color:var(--green)}
+  .work-step .circle{width:34px;height:34px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900;font-size:13px}
+  .work-step b{display:block;font-size:13px;color:var(--navy);line-height:1.45}
+  .work-step span{display:block;color:var(--sub);font-size:11px;line-height:1.5;margin-top:4px}
+  .settlement{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:15px;padding:15px 17px;border:1px solid #f2d59c;background:#fff8e9;border-radius:14px}
+  .settlement strong{color:#814a00;font-size:15px}
+  .settlement .money{display:inline-block;background:#f2b84b;color:#593400;padding:3px 9px;border-radius:8px;font-weight:900}
+  .settlement small{color:#7b643e}
+  .talk-steps{display:grid;gap:12px}
+  .talk-step{display:grid;grid-template-columns:48px 1fr;gap:13px;align-items:start}
+  .talk-step .n{width:44px;height:44px;border-radius:14px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 5px 13px rgba(18,35,63,.15)}
+  .talk-box{border:1px solid var(--line);border-radius:15px;padding:16px 17px;background:#fff}
+  .talk-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .talk-head h3{margin:0;color:var(--navy);font-size:17px}
+  .talk-box p{margin:5px 0 0;color:var(--sub);font-size:13px}
+  .say{margin-top:11px;padding:12px 14px;border-radius:11px;background:#f7f9fc;border-left:4px solid var(--teal);color:#2d3a4c;font-size:13px}
+  .say b{color:#08756b}
+  .ngok{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .ngok>div{border-radius:11px;padding:11px 12px;font-size:12px}
+  .ng{background:var(--red-soft);border:1px solid #f0c9cc;color:#7c2c31}
+  .ok{background:var(--green-soft);border:1px solid #c8e7d7;color:#125f43}
+  .script-shell{border-radius:20px;overflow:hidden;border:1px solid #cfd9ec;background:#fff;box-shadow:var(--shadow)}
+  .script-head{padding:18px 20px;background:linear-gradient(135deg,#253b6a,#405c96);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .script-head h3{margin:0;font-size:20px}
+  .script-head p{margin:2px 0 0;color:#dce5f8;font-size:12px}
+  .script-body{padding:22px}
+  .script-block{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:14px 0;border-top:1px dashed var(--line)}
+  .script-block:first-child{border-top:0;padding-top:0}
+  .script-label{font-size:11px;font-weight:900;color:#4b5f85;background:#edf2fb;border-radius:9px;padding:5px 8px;text-align:center;height:max-content}
+  .script-text{font-size:15px;color:#29364a;line-height:1.9}
+  .blank{display:inline-block;color:#254a90;background:#edf4ff;border-bottom:2px solid #6f91d3;border-radius:5px 5px 0 0;padding:0 5px;font-weight:800}
+  .marker{background:linear-gradient(transparent 62%,#ffea91 62%);font-weight:700}
+  .redline{color:#b22f38;font-weight:900;text-decoration:underline;text-decoration-color:#f0a8ad;text-decoration-thickness:4px;text-underline-offset:4px}
+  .close-line{margin-top:6px;padding:14px 16px;border-radius:12px;background:#edf2fb;color:#203d78;font-size:16px;font-weight:900}
+  .report-shell{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+  .report-head{background:var(--navy);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .report-head h3{margin:0;font-size:17px}
+  .report-head span{font-size:11px;color:#cbd6e6}
+  .report-body{padding:18px}
+  .report-note{margin:0 0 12px;color:var(--sub);font-size:13px}
+  pre.report{position:relative;margin:0;padding:18px;border-radius:13px;background:#f6f8fb;border:1px solid var(--line);white-space:pre-wrap;font:13px/1.9 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#2c394d}
+  .faq{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  details{border:1px solid var(--line);border-radius:13px;background:#fff;padding:0 15px}
+  summary{cursor:pointer;list-style:none;padding:14px 22px 14px 0;font-weight:800;color:var(--navy);position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"＋";position:absolute;right:0;color:var(--teal);font-size:18px}
+  details[open] summary::after{content:"−"}
+  details p{margin:0 0 14px;color:var(--sub);font-size:13px}
+  footer{text-align:center;color:#8b96a6;font-size:11px;margin-top:34px}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#17243a;color:#fff;border-radius:999px;padding:9px 15px;font-size:12px;font-weight:800;transition:.25s ease;z-index:100}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (max-width:820px){
+    .mission{grid-template-columns:1fr}
+    .workflow{grid-template-columns:repeat(3,1fr)}
+    .work-step:nth-child(3)::after{display:none}
+    .quick-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:620px){
+    .page{padding:14px 11px 50px}
+    .topbar{position:static;align-items:flex-start}
+    .topbar .name{display:none}
+    .hero{padding:27px 21px 24px;border-radius:19px}
+    .hero h1{font-size:27px}
+    .card{padding:17px}
+    .prep-grid,.faq,.ngok{grid-template-columns:1fr}
+    .workflow{grid-template-columns:1fr}
+    .work-step{min-height:auto;text-align:left;padding:13px 14px 13px 58px}
+    .work-step:not(:last-child)::after{display:block;content:"↓";right:auto;left:20px;top:auto;bottom:-22px;font-size:18px}
+    .work-step:nth-child(3)::after{display:block}
+    .work-step .who{margin-bottom:3px}
+    .work-step .circle{position:absolute;left:13px;top:20px;margin:0}
+    .settlement{align-items:flex-start;flex-direction:column}
+    .talk-step{grid-template-columns:38px 1fr;gap:9px}
+    .talk-step .n{width:36px;height:36px;border-radius:11px}
+    .talk-box{padding:14px}
+    .script-block{grid-template-columns:1fr;gap:7px}
+    .script-label{text-align:left;width:max-content}
+    .section-title h2{font-size:19px}
+  }
+  @media print{
+    @page{size:A4;margin:12mm}
+    body{background:#fff;font-size:11px;line-height:1.55}
+    .page{max-width:none;padding:0}
+    .topbar,.toast{display:none!important}
+    .hero{box-shadow:none;border-radius:12px;padding:22px;break-inside:avoid}
+    .hero h1{font-size:26px}
+    .section{margin-top:20px}
+    .card,.script-shell,.report-shell{box-shadow:none}
+    .mission-main,.mini-rule,.quick-card,.work-step,.talk-box,.check-item,details{break-inside:avoid}
+    .workflow{gap:5px}
+    .work-step{padding:10px 6px;min-height:120px}
+    .script-body{padding:16px}
+    details{display:block}
+    details p{display:block}
+    summary::after{display:none}
+    footer{margin-top:18px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div class="name">協力会社開拓 営業マニュアル</div>
+    <div class="actions">
+      <button class="btn" onclick="scrollToId('script')">トークを見る</button>
+      <button class="btn" onclick="copyReport()">報告書をコピー</button>
+      <button class="btn primary" onclick="window.print()">印刷・PDF保存</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">
+        <span class="pill white">社内用</span>
+        <span class="pill white">営業担当：晃輔</span>
+      </div>
+      <h1>協力会社（パートナー）<br>開拓の進め方</h1>
+      <p>ホームページで見つけた施工会社へ連絡し、自社で対応しきれない案件の協力を依頼するための実践マニュアルです。電話前の準備から、トーク、提携後の運用、社内報告までを順番に確認できます。</p>
+      <div class="hero-meta">
+        <div class="meta"><b>電話の目的</b>案件を相談できる提携先を増やす</div>
+        <div class="meta"><b>基本条件</b>案件ごとに相談・断りOK</div>
+        <div class="meta"><b>売上配分</b>作業売上を50％ずつ</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">01</div>
+      <div><h2>まず、ゴールだけ把握する</h2><p>電話で細部を全部決める必要はありません。まず協力可能かを確認します。</p></div>
+    </div>
+    <div class="card mission">
+      <div class="mission-main">
+        <div class="small">今回のミッション</div>
+        <h3>当社だけでは訪問できない案件を依頼し、<br><strong>作業売上の50％</strong>を受け取る提携先を増やす。</h3>
+        <p>最初の電話では、相手に仕組みを理解してもらい「案件が来たら相談を受けてもよい」という合意を得ることがゴールです。</p>
+      </div>
+      <div class="mission-side">
+        <div class="mini-rule"><div class="num">1</div><div><b>案件ごとの都度相談</b><span>固定の依頼ではなく、案件が入ったときだけ相談します。</span></div></div>
+        <div class="mini-rule"><div class="num">2</div><div><b>対応できない場合は断りOK</b><span>相手の予定や対応エリアを尊重し、無理な依頼はしません。</span></div></div>
+        <div class="mini-rule"><div class="num">3</div><div><b>作業売上は50％ずつ</b><span>税込売上の扱いや出張費の範囲は、提携前に確認します。</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">02</div>
+      <div><h2>相手に伝える3つの必須条件</h2><p>話が長くなっても、この3点だけは抜けないようにします。</p></div>
+    </div>
+    <div class="quick-grid">
+      <article class="quick-card" data-num="1"><div class="emoji">📈</div><h3>案件が増えている</h3><p>ホームページからの問い合わせが想定以上に入り、自社だけでは訪問しきれない状況を伝えます。</p></article>
+      <article class="quick-card" data-num="2"><div class="emoji">📞</div><h3>案件ごとに相談する</h3><p>案件内容と希望時間を伝え、訪問できる場合だけ依頼します。対応不可なら断って問題ありません。</p></article>
+      <article class="quick-card" data-num="3"><div class="emoji">💰</div><h3>売上を50％ずつ分ける</h3><p>協力会社が訪問・見積もり・作業を行い、作業売上の50％を当社へ支払う条件です。</p></article>
+    </div>
+    <div class="notice warn"><b>電話で全部を決めようとしない：</b>まずは協力可能かを確認し、報告方法・精算方法・費用の扱いは、相手が前向きな場合に詰めます。</div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">03</div>
+      <div><h2>電話をかける前の準備</h2><p>手元にない情報を聞かれて沈黙する、人類おなじみの事故を先に潰します。</p></div>
+    </div>
+    <div class="card">
+      <div class="prep-grid">
+        <div class="check-item"><div class="check">✓</div><div><b>相手の会社名・対応業種</b><span>ホームページで会社名、施工内容、対応エリアを確認する。</span></div></div>
+        <div class="check-item"><div class="check">✓</div><div><b>連絡した具体的な理由</b><span>「対応実績が分かりやすかった」など、サイトを見た根拠を一つ用意する。</span></div></div>
+        <div class="check-item"><div class="check">✓</div><div><b>自社の屋号・事業内容</b><span>【〇〇】部分を実際の屋号、作業内容、自分の名前へ置き換える。</span></div></div>
+        <div class="check-item"><div class="check">✓</div><div><b>基本条件の説明</b><span>案件ごとの相談、断り可能、売上50％の3点をすぐ言えるようにする。</span></div></div>
+      </div>
+      <div class="notice red"><b>重要：</b>「個人事業主として始めたばかり」などの表現は、実際の状況と一致する場合のみ使用してください。会社情報や実績を誤って伝えないようにします。</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">04</div>
+      <div><h2>提携後の業務フロー</h2><p>誰が、どの順番で、何をするかを6ステップで整理しています。</p></div>
+    </div>
+    <div class="flow-wrap">
+      <p class="flow-title">案件発生から精算まで</p>
+      <div class="workflow">
+        <div class="work-step"><span class="who us">当社</span><div class="circle">1</div><b>案件を打診</b><span>依頼内容・場所・希望時間を伝える</span></div>
+        <div class="work-step"><span class="who partner">協力会社</span><div class="circle">2</div><b>訪問可能時間を回答</b><span>対応不可の場合はここで断ってOK</span></div>
+        <div class="work-step"><span class="who us">当社</span><div class="circle">3</div><b>お客様へ時間案内</b><span>訪問時間を伝え、了承を得る</span></div>
+        <div class="work-step"><span class="who us">当社</span><div class="circle">4</div><b>顧客情報を共有</b><span>氏名・住所・電話・依頼内容を送る</span></div>
+        <div class="work-step"><span class="who partner">協力会社</span><div class="circle">5</div><b>訪問・見積もり・作業</b><span>現地対応後、結果と売上を報告</span></div>
+        <div class="work-step"><span class="who partner">協力会社</span><div class="circle">6</div><b>当社へ精算</b><span>合意した方法で当社分を支払う</span></div>
+      </div>
+      <div class="settlement">
+        <div><strong>作業完了後：協力会社から当社へ <span class="money">売上の50％</span></strong><br><small>例：税込44,000円の作業売上の場合、当社分は22,000円</small></div>
+        <small>※出張費、見積料、部材費などを売上に含めるかは提携前に確認</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">05</div>
+      <div><h2>電話の進め方 5ステップ</h2><p>上から順に話せば、説明が前後しにくくなります。</p></div>
+    </div>
+    <div class="talk-steps">
+      <div class="talk-step">
+        <div class="n">1</div>
+        <div class="talk-box"><div class="talk-head"><h3>自己紹介</h3><span class="pill teal">10秒</span></div><p>屋号、事業内容、自分の名前を簡潔に伝えます。</p><div class="say"><b>話し方：</b>「〇〇という屋号で、〇〇の事業を行っております、〇〇と申します。」</div></div>
+      </div>
+      <div class="talk-step">
+        <div class="n">2</div>
+        <div class="talk-box"><div class="talk-head"><h3>連絡した理由</h3><span class="pill teal">20秒</span></div><p>案件が増えている現状と、なぜその会社へ連絡したのかを伝えます。</p><div class="ngok"><div class="ng"><b>避ける：</b>「優秀そうな会社だと思った」<br>上から目線に聞こえる可能性があります。</div><div class="ok"><b>使う：</b>「ホームページを拝見し、しっかり対応されている会社様だと感じた」</div></div></div>
+      </div>
+      <div class="talk-step">
+        <div class="n">3</div>
+        <div class="talk-box"><div class="talk-head"><h3>協力してほしい内容</h3><span class="pill teal">30秒</span></div><p>案件が入った際に訪問可能時間を確認し、お客様の了承後に情報を共有する流れを説明します。</p><div class="say"><b>必ず補足：</b>予定が合わない場合や対応が難しい場合は、断っていただいて問題ありません。</div></div>
+      </div>
+      <div class="talk-step">
+        <div class="n">4</div>
+        <div class="talk-box"><div class="talk-head"><h3>料金条件</h3><span class="pill orange">重要</span></div><p>作業完了時の売上の50％を当社へ支払ってもらう条件を明確に伝えます。</p><div class="say"><b>具体例：</b>税込44,000円の売上の場合、22,000円を当社へ支払っていただく形です。</div></div>
+      </div>
+      <div class="talk-step">
+        <div class="n">5</div>
+        <div class="talk-box"><div class="talk-head"><h3>報告・精算方法を確認</h3><span class="pill teal">最後</span></div><p>LINE、メール、電話などの報告方法と、請求書振込・PayPayなどの精算方法を相談します。管理しやすさを考え、基本は請求書発行後の銀行振込を優先します。</p><div class="say"><b>締め：</b>「このような形で、案件が入った際にご相談させていただくことは可能でしょうか？」</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="script">
+    <div class="section-title">
+      <div class="icon">06</div>
+      <div><h2>そのまま読めるトークスクリプト</h2><p>【〇〇】を実際の内容に置き換えて使用します。</p></div>
+    </div>
+    <div class="script-shell">
+      <div class="script-head">
+        <div><h3>電話用フルスクリプト</h3><p>重要部分だけ強調しています。丸暗記より、順番を崩さないことを優先します。</p></div>
+        <button class="btn" onclick="copyScript()">スクリプトをコピー</button>
+      </div>
+      <div class="script-body" id="scriptText">
+        <div class="script-block"><div class="script-label">自己紹介</div><div class="script-text">「お世話になります。私、<span class="blank">【〇〇（屋号）】</span>という屋号で<span class="blank">【〇〇（事業内容）】</span>の事業を行っております、<span class="blank">【〇〇（自分の名前）】</span>と申します。」</div></div>
+        <div class="script-block"><div class="script-label">現状説明</div><div class="script-text">「最近、個人事業主として事業を始め、ホームページで集客を開始したのですが、<span class="marker">想定していた以上にお問い合わせをいただいており、自分一人ではすべての案件に訪問できない</span>状況になっています。」</div></div>
+        <div class="script-block"><div class="script-label">選定理由</div><div class="script-text">「そこで、対応が難しい案件について、協力いただける会社様を探しておりました。御社のホームページを拝見し、<span class="marker">しっかり対応されている会社様だと感じた</span>ため、今回ご連絡させていただきました。」</div></div>
+        <div class="script-block"><div class="script-label">案件の流れ</div><div class="script-text">「案件が入った際に、まず当社からお電話などで案件内容をお伝えし、どのくらいの時間で訪問できそうか確認させていただきます。その時間を当社からお客様へ案内し、お客様の了承が取れましたら、氏名・住所・電話番号・依頼内容などの情報を御社へ共有します。」</div></div>
+        <div class="script-block"><div class="script-label">売上条件</div><div class="script-text">「その後、御社に訪問・見積もり・作業まで対応していただき、<span class="redline">作業売上の50％を当社へお支払いいただく形</span>を考えています。」</div></div>
+        <div class="script-block"><div class="script-label">断り可能</div><div class="script-text">「案件ごとのご相談になりますので、予定が合わない場合や対応が難しい場合は、<span class="marker">断っていただいて問題ございません。</span>」</div></div>
+        <div class="script-block"><div class="script-label">報告・精算</div><div class="script-text">「作業結果や売上金額のご報告は、LINEやメールなど、御社がやりやすい方法に合わせます。精算についても、請求書を発行してのお振り込みやPayPayなど、双方が管理しやすい方法で相談できればと思っています。」</div></div>
+        <div class="close-line">「このような形で、案件が入った際にご相談させていただくことは可能でしょうか？」</div>
+      </div>
+    </div>
+    <div class="notice green"><b>使い方：</b>相手の反応を確認しながら、文章を一気に読み上げず、段落ごとに間を取ります。質問が入ったら、その質問に答えてから次へ進みます。</div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">07</div>
+      <div><h2>電話後の社内報告</h2><p>相手が前向きな場合は、聞き漏らしがないようにその場で入力します。</p></div>
+    </div>
+    <div class="report-shell">
+      <div class="report-head"><h3>協力会社 打診報告</h3><span>右上または下のボタンからコピーできます</span></div>
+      <div class="report-body">
+        <p class="report-note">会社情報、対応条件、連絡・精算方法をまとめて報告してください。</p>
+        <pre class="report" id="reportText">【協力会社 打診報告】
+■ 会社名・屋号：
+■ 担当者名：
+■ 電話番号：
+■ 対応可能エリア：
+■ 対応可能な作業：
+■ 営業時間：
+■ 案件相談の連絡方法（電話／LINEなど）：
+■ 売上50％の条件に対する回答：
+■ 精算方法（振込／PayPayなど）：
+■ その他質問・条件（出張費の扱いなど）：</pre>
+        <div style="margin-top:11px;text-align:right"><button class="btn primary" onclick="copyReport()">報告書をコピー</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div class="icon">?</div>
+      <div><h2>迷いやすいポイント</h2><p>電話中に判断が止まりやすい部分だけ整理しています。</p></div>
+    </div>
+    <div class="faq">
+      <details open><summary>最初から50％の条件を伝える？</summary><p>はい。協力内容を説明した後、料金条件として明確に伝えます。後から条件を出すと認識違いになりやすいためです。</p></details>
+      <details><summary>相手が対応できないと言ったら？</summary><p>無理に依頼せず、「案件ごとの相談なので、対応可能なときだけで問題ありません」と伝えます。</p></details>
+      <details><summary>報告方法は何を優先する？</summary><p>LINE、メール、電話など、相手が管理しやすい方法に合わせます。記録が残る方法を優先すると運用しやすくなります。</p></details>
+      <details><summary>精算方法はどうする？</summary><p>請求書発行後の銀行振込を基本とし、必要に応じてPayPayなども相談します。売上の範囲と支払時期も確認します。</p></details>
+    </div>
+  </section>
+
+  <footer>協力会社（パートナー）開拓 営業マニュアル／社内用</footer>
+</div>
+<div class="toast" id="toast">コピーしました</div>
+<script>
+  function showToast(message){
+    const toast=document.getElementById('toast');
+    toast.textContent=message;
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1800);
+  }
+  async function copyText(text,message){
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast(message || 'コピーしました');
+    }catch(e){
+      const t=document.createElement('textarea');
+      t.value=text;t.style.position='fixed';t.style.opacity='0';
+      document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();
+      showToast(message || 'コピーしました');
+    }
+  }
+  function copyReport(){
+    copyText(document.getElementById('reportText').innerText,'報告書をコピーしました');
+  }
+  function copyScript(){
+    const text=`お世話になります。私、【〇〇（屋号）】という屋号で【〇〇（事業内容）】の事業を行っております、【〇〇（自分の名前）】と申します。
+
+最近、個人事業主として事業を始め、ホームページで集客を開始したのですが、想定していた以上にお問い合わせをいただいており、自分一人ではすべての案件に訪問できない状況になっています。
+
+そこで、対応が難しい案件について、協力いただける会社様を探しておりました。御社のホームページを拝見し、しっかり対応されている会社様だと感じたため、今回ご連絡させていただきました。
+
+案件が入った際に、まず当社からお電話などで案件内容をお伝えし、どのくらいの時間で訪問できそうか確認させていただきます。その時間を当社からお客様へ案内し、お客様の了承が取れましたら、氏名・住所・電話番号・依頼内容などの情報を御社へ共有します。
+
+その後、御社に訪問・見積もり・作業まで対応していただき、作業売上の50％を当社へお支払いいただく形を考えています。
+
+案件ごとのご相談になりますので、予定が合わない場合や対応が難しい場合は、断っていただいて問題ございません。
+
+作業結果や売上金額のご報告は、LINEやメールなど、御社がやりやすい方法に合わせます。精算についても、請求書を発行してのお振り込みやPayPayなど、双方が管理しやすい方法で相談できればと思っています。
+
+このような形で、案件が入った際にご相談させていただくことは可能でしょうか？`;
+    copyText(text,'スクリプトをコピーしました');
+  }
+  function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+</script>
+</body>
+</html>
