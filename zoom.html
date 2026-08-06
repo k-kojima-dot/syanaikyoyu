@@ -3,146 +3,519 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#5b53e8">
 <title>Zoom着信 自動ポップアップ 操作マニュアル</title>
 <style>
   :root{
-    --bg:#f6f7fb; --card:#fff; --ink:#1e2230; --sub:#5b6172; --line:#e6e8ef;
-    --brand:#5b53e8; --brand-soft:#eeecfe; --ok:#0f9d6b; --warn:#c2410c; --warn-soft:#fff2e8;
+    --bg:#f4f6fb;
+    --surface:#ffffff;
+    --surface-soft:#fafaff;
+    --ink:#171a26;
+    --sub:#5c6273;
+    --muted:#8a91a3;
+    --line:#e5e8f0;
+    --brand:#5b53e8;
+    --brand-dark:#3f39b8;
+    --brand-soft:#eeecff;
+    --cyan:#0ea5b7;
+    --cyan-soft:#e7fbfd;
+    --ok:#0f9d6b;
+    --ok-soft:#e8f8f1;
+    --warn:#c2410c;
+    --warn-soft:#fff2e8;
+    --danger:#c82a3c;
+    --danger-soft:#fff0f2;
+    --shadow:0 14px 40px rgba(35,38,70,.08);
+    --shadow-sm:0 6px 18px rgba(35,38,70,.07);
+    --radius-lg:24px;
+    --radius-md:16px;
+    --radius-sm:11px;
   }
+
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
-    line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:820px;margin:0 auto;padding:28px 20px 60px}
-  header.hero{background:linear-gradient(135deg,#5b53e8,#7a72f0);color:#fff;border-radius:18px;
-    padding:26px 26px 22px;box-shadow:0 10px 30px rgba(91,83,232,.25)}
-  header.hero .pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
-    font-size:12px;font-weight:700;letter-spacing:.04em;padding:4px 11px;border-radius:999px}
-  header.hero h1{margin:.5em 0 .15em;font-size:24px;line-height:1.35}
-  header.hero p{margin:0;opacity:.95;font-size:14px}
-  h2{font-size:18px;margin:34px 0 12px;display:flex;align-items:center;gap:10px}
-  h2 .n{flex:0 0 auto;width:28px;height:28px;border-radius:9px;background:var(--brand);color:#fff;
-    display:grid;place-items:center;font-size:15px;font-weight:800}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:12px 0;
-    box-shadow:0 1px 2px rgba(20,24,40,.04)}
-  .lead{color:var(--sub);margin:.2em 0 0}
-  ol.steps{list-style:none;counter-reset:s;margin:6px 0 0;padding:0}
-  ol.steps>li{counter-increment:s;position:relative;padding:10px 0 10px 42px;border-top:1px dashed var(--line)}
-  ol.steps>li:first-child{border-top:0}
-  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;
-    background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:13px;display:grid;place-items:center}
-  b.hl{color:var(--brand)}
-  .kbd{display:inline-block;background:#eef0f6;border:1px solid #d7dae6;border-bottom-width:2px;border-radius:6px;
-    padding:1px 7px;font-size:13px;font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace}
-  .url{font-family:ui-monospace,Menlo,Consolas,monospace;background:#f0f1f7;border:1px solid var(--line);
-    border-radius:6px;padding:1px 6px;font-size:13px;word-break:break-all}
-  /* サイドバー・セレクタの見本 */
-  .mock{background:#0f1526;border-radius:12px;padding:14px;max-width:290px;margin:8px 0 2px}
-  .mock .u{display:flex;align-items:center;gap:9px;margin-bottom:12px}
-  .mock .av{width:32px;height:32px;border-radius:50%;background:#3a3f8f;color:#c9c6ff;display:grid;place-items:center;font-weight:700;font-size:13px}
-  .mock .u b{color:#fff;font-size:13px;display:block;line-height:1.2}
-  .mock .u span{color:#9aa2bd;font-size:11px}
-  .mock label{color:#8b93b0;font-size:11px;display:block;margin:0 0 5px}
-  .mock select{width:100%;background:#1b2338;border:1px solid #2c3550;color:#e8ebf5;border-radius:8px;
-    padding:8px 9px;font-size:13px;appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b93b0' stroke-width='3'><path d='M6 9l6 6 6-6'/></svg>");
-    background-repeat:no-repeat;background-position:right 10px center}
-  .callout{border-radius:12px;padding:14px 16px;margin:12px 0;font-size:14px}
-  .callout.warn{background:var(--warn-soft);border:1px solid #f6cdb0;color:#7c2d12}
-  .callout.ok{background:#e9f8f1;border:1px solid #bfe9d5;color:#0b6b48}
-  .callout b{display:block;margin-bottom:2px}
-  .qa{margin:6px 0 0}
-  .qa dt{font-weight:800;margin-top:14px}
-  .qa dt::before{content:"Q. ";color:var(--brand)}
-  .qa dd{margin:3px 0 0;color:#3a3f52}
-  .qa dd::before{content:"A. ";font-weight:800;color:var(--ok)}
-  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:6px}
-  .flow .b{flex:1 1 150px;background:var(--brand-soft);border:1px solid #dcd8fb;border-radius:10px;padding:10px 12px;font-size:13px}
-  .flow .b b{color:var(--brand);display:block;font-size:12px;margin-bottom:2px}
-  .flow .arw{align-self:center;color:#b9bcd0;font-weight:800}
-  footer{color:#9098ab;font-size:12px;text-align:center;margin-top:34px}
-  @media print{body{background:#fff}.card,header.hero{box-shadow:none}}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 8% -10%, rgba(91,83,232,.14), transparent 28%),
+      radial-gradient(circle at 95% 8%, rgba(14,165,183,.10), transparent 24%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+    font-size:15px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  button,select{font:inherit}
+  a{color:inherit}
+  .page{max-width:1020px;margin:0 auto;padding:28px 20px 72px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    min-height:308px;
+    border-radius:30px;
+    padding:34px 36px;
+    color:#fff;
+    background:
+      linear-gradient(135deg,rgba(25,22,86,.18),rgba(25,22,86,.02)),
+      linear-gradient(135deg,#4c46d7 0%,#6d64ee 54%,#36a9ba 120%);
+    box-shadow:0 22px 55px rgba(67,59,195,.28);
+  }
+  .hero::before,
+  .hero::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .hero::before{width:310px;height:310px;right:-90px;top:-120px;background:rgba(255,255,255,.11)}
+  .hero::after{width:190px;height:190px;right:145px;bottom:-110px;border:35px solid rgba(255,255,255,.07)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:32px;align-items:center}
+  .eyebrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;
+    min-height:30px;padding:5px 11px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.34);
+    background:rgba(255,255,255,.13);
+    font-size:12px;font-weight:800;letter-spacing:.03em;
+    backdrop-filter:blur(8px);
+  }
+  .pill svg{width:15px;height:15px}
+  h1{margin:0;font-size:clamp(27px,4vw,42px);line-height:1.25;letter-spacing:-.025em}
+  .hero p{max-width:660px;margin:15px 0 0;color:rgba(255,255,255,.92);font-size:15px}
+  .hero-points{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .hero-point{display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:10px;background:rgba(19,17,78,.18);font-size:12px;font-weight:700}
+  .hero-point span{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.18)}
+
+  .hero-visual{position:relative;min-height:230px}
+  .browser-card{
+    position:absolute;right:2px;top:4px;width:min(100%,330px);
+    border:1px solid rgba(255,255,255,.28);border-radius:17px;overflow:hidden;
+    background:#fff;box-shadow:0 20px 50px rgba(27,23,93,.35);
+    transform:rotate(1.5deg);
+  }
+  .browser-top{display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;background:#f1f3f8;border-bottom:1px solid #dfe3ec}
+  .dot{width:8px;height:8px;border-radius:50%;background:#c8ccd7}.dot:nth-child(1){background:#ff6b63}.dot:nth-child(2){background:#f6bf4b}.dot:nth-child(3){background:#4ecb71}
+  .address{margin-left:8px;flex:1;height:20px;border-radius:6px;background:#fff;border:1px solid #dde1e9;color:#9298a8;font-size:9px;display:flex;align-items:center;padding:0 8px}
+  .mini-app{display:grid;grid-template-columns:74px 1fr;min-height:165px;background:#fff;color:#202437}
+  .mini-side{padding:14px 10px;background:#11172a}
+  .mini-logo{width:24px;height:24px;border-radius:7px;background:linear-gradient(145deg,#6a62ff,#9f98ff);margin-bottom:15px}
+  .mini-nav{height:8px;border-radius:4px;background:#2b344e;margin:8px 0}.mini-nav.active{background:#6962ee}
+  .mini-main{padding:14px}
+  .mini-title{width:54%;height:10px;border-radius:5px;background:#2c3040;margin-bottom:13px}
+  .mini-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .mini-field{height:34px;border:1px solid #e2e5ec;border-radius:7px;background:#fafbfe}.mini-field.wide{grid-column:1/-1}
+  .mini-save{width:74px;height:25px;border-radius:7px;background:#5b53e8;margin-top:10px;margin-left:auto}
+  .phone-pop{
+    position:absolute;left:4px;bottom:3px;width:196px;padding:13px 14px;border-radius:15px;
+    background:#fff;color:#1d2130;box-shadow:0 17px 35px rgba(24,24,80,.35);
+    border:1px solid rgba(91,83,232,.18);transform:rotate(-2deg);
+  }
+  .phone-pop .row{display:flex;gap:10px;align-items:center}
+  .phone-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
+  .phone-icon svg{width:19px;height:19px}
+  .phone-pop b{display:block;font-size:12px;line-height:1.35}.phone-pop small{color:#747b8e;font-size:10px}
+  .phone-pop .loading{height:5px;border-radius:999px;background:#eceef4;margin-top:10px;overflow:hidden}.phone-pop .loading i{display:block;width:75%;height:100%;background:linear-gradient(90deg,var(--brand),#8d85ff);border-radius:inherit}
+
+  /* ---------- Navigation / shared ---------- */
+  .quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0 6px}
+  .quick-nav a{
+    display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(255,255,255,.85);
+    border:1px solid var(--line);border-radius:13px;padding:12px 13px;box-shadow:var(--shadow-sm);
+    color:#373c4d;font-size:13px;font-weight:800;transition:.18s ease;
+  }
+  .quick-nav a:hover{transform:translateY(-2px);border-color:#cbc8fa;color:var(--brand)}
+  .quick-nav i{font-style:normal;width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:var(--brand-soft);color:var(--brand)}
+
+  section{scroll-margin-top:20px}
+  .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:42px 0 14px}
+  .section-title{display:flex;align-items:center;gap:12px}
+  .section-title .num{flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--brand);color:#fff;font-weight:900;box-shadow:0 7px 16px rgba(91,83,232,.22)}
+  .section-title .num.ok{background:var(--ok)}
+  .section-title .num.help{background:#30364b}
+  h2{margin:0;font-size:21px;line-height:1.35;letter-spacing:-.01em}
+  .section-head p{margin:3px 0 0;color:var(--sub);font-size:13px}
+  .time-badge{flex:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;border-radius:999px;padding:6px 10px;background:#fff;border:1px solid var(--line);color:#606678;font-size:11px;font-weight:800}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);box-shadow:var(--shadow-sm)}
+  .card-pad{padding:22px}
+  .lead{color:var(--sub);margin:0}
+  .hl{color:var(--brand);font-weight:900}
+  .subtle{color:var(--sub)}
+  .icon{width:20px;height:20px;flex:none}
+  .kbd{display:inline-grid;place-items:center;min-width:25px;height:24px;background:#eef0f6;border:1px solid #d5d9e5;border-bottom-width:2px;border-radius:6px;padding:0 7px;font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#373c4d}
+  .url-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .url{display:inline-flex;align-items:center;max-width:100%;word-break:break-all;border-radius:8px;padding:5px 9px;background:#f2f3f8;border:1px solid #e0e3eb;font:700 12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#454a5d}
+  .mini-button{border:0;border-radius:8px;padding:7px 10px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:900;cursor:pointer}
+  .mini-button:hover{background:#e1defe}
+
+  /* ---------- Overview ---------- */
+  .overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .overview-card{position:relative;overflow:hidden;padding:20px 18px 18px;min-height:177px}
+  .overview-card::after{content:"";position:absolute;right:-38px;bottom:-50px;width:120px;height:120px;border-radius:50%;background:var(--brand-soft)}
+  .overview-card:nth-child(2)::after{background:var(--cyan-soft)}
+  .overview-card:nth-child(3)::after{background:var(--ok-soft)}
+  .overview-step{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .overview-step span{display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-size:12px;font-weight:900}
+  .overview-card:nth-child(2) .overview-step span{color:var(--cyan)}
+  .overview-card:nth-child(3) .overview-step span{color:var(--ok)}
+  .overview-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
+  .overview-card:nth-child(2) .overview-icon{background:var(--cyan-soft);color:var(--cyan)}
+  .overview-card:nth-child(3) .overview-icon{background:var(--ok-soft);color:var(--ok)}
+  .overview-icon svg{width:23px;height:23px}
+  .overview-card h3{position:relative;z-index:1;margin:0 0 5px;font-size:16px}.overview-card p{position:relative;z-index:1;margin:0;color:var(--sub);font-size:13px}
+  .important-note{display:flex;align-items:flex-start;gap:12px;margin-top:14px;padding:14px 16px;border:1px solid #dad7ff;border-radius:13px;background:linear-gradient(90deg,#f0efff,#fafaff)}
+  .important-note .badge-icon{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#fff;color:var(--brand);box-shadow:0 4px 10px rgba(91,83,232,.10)}
+  .important-note b{display:block;font-size:13px}.important-note p{margin:1px 0 0;color:#555b6d;font-size:12px}
+
+  /* ---------- Instruction block ---------- */
+  .instruction-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:16px}
+  .steps{list-style:none;counter-reset:step;margin:10px 0 0;padding:0}
+  .steps li{counter-increment:step;position:relative;padding:16px 0 16px 48px;border-top:1px dashed var(--line)}
+  .steps li:first-child{border-top:0;padding-top:10px}.steps li:first-child::before{top:7px}
+  .steps li::before{content:counter(step);position:absolute;left:0;top:14px;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-weight:900;font-size:13px}
+  .steps b{color:#292e40}.steps small{display:block;margin-top:3px;color:var(--sub);font-size:12px}
+
+  .visual-panel{position:relative;overflow:hidden;background:#11172a;border:1px solid #202943;border-radius:15px;padding:16px;color:#fff;min-height:300px}
+  .visual-panel::before{content:"";position:absolute;right:-80px;top:-80px;width:180px;height:180px;border-radius:50%;background:rgba(91,83,232,.18)}
+  .mock-user{position:relative;z-index:1;display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid #273149}
+  .avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#5b53e8,#8f87ff);font-weight:900;font-size:13px}
+  .mock-user b{display:block;font-size:13px;line-height:1.25}.mock-user span{display:block;color:#9ea7be;font-size:10px;line-height:1.4}
+  .selector-label{display:flex;align-items:center;justify-content:space-between;margin:19px 0 7px;color:#aeb6c9;font-size:11px;font-weight:800}
+  .selector-label i{font-style:normal;color:#7f88a2;font-size:10px}
+  .mock-select{position:relative;z-index:1;width:100%;border:1px solid #35415f;border-radius:10px;background:#1c2439;color:#f2f4fa;padding:11px 38px 11px 11px;font-size:12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2399a2bb' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  .remember-box{position:relative;z-index:1;display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:11px;border-radius:10px;background:#171f33;border:1px solid #2a3550;color:#bac2d3;font-size:11px}
+  .remember-box svg{width:16px;height:16px;color:#7b74f2;flex:none;margin-top:1px}
+  .visual-call{position:relative;z-index:1;margin-top:15px;border-radius:11px;padding:12px;background:linear-gradient(135deg,#5b53e8,#7068ec);box-shadow:0 10px 25px rgba(0,0,0,.2)}
+  .visual-call .top{display:flex;align-items:center;gap:9px}.visual-call .phone{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.16);display:grid;place-items:center}.visual-call b{font-size:12px}.visual-call p{margin:1px 0 0;color:rgba(255,255,255,.78);font-size:10px}
+
+  .callout{display:flex;align-items:flex-start;gap:11px;border-radius:13px;padding:14px 15px;margin-top:14px;font-size:13px}
+  .callout svg{flex:none;width:20px;height:20px;margin-top:1px}
+  .callout b{display:block;margin-bottom:2px}.callout p{margin:0}
+  .callout.ok{background:var(--ok-soft);border:1px solid #bce8d5;color:#0b6747}
+  .callout.warn{background:var(--warn-soft);border:1px solid #f3c8aa;color:#7d2d0e}
+  .callout.info{background:var(--brand-soft);border:1px solid #d7d3fb;color:#423ca8}
+
+  /* ---------- Browser permission visual ---------- */
+  .browser-guide{background:#f8f9fc;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+  .browser-bar{display:flex;align-items:center;gap:7px;padding:11px 12px;background:#eceff5;border-bottom:1px solid #dce0e9}
+  .browser-controls{display:flex;gap:5px}.browser-controls i{display:block;width:9px;height:9px;border-radius:50%;background:#c7ccd8}.browser-controls i:first-child{background:#ff7169}.browser-controls i:nth-child(2){background:#f6c04f}.browser-controls i:nth-child(3){background:#4fc971}
+  .lock{width:17px;height:17px;display:grid;place-items:center;color:#6d7384;margin-left:5px}.lock svg{width:13px;height:13px}
+  .browser-address{height:29px;display:flex;align-items:center;flex:1;padding:0 9px;border-radius:8px;background:#fff;border:1px solid #d8dce5;font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#5e6474;overflow:hidden;white-space:nowrap}
+  .blocked-icon{position:relative;width:28px;height:28px;border-radius:8px;background:#fff;border:1px solid #d8dce5;display:grid;place-items:center;color:var(--danger)}
+  .blocked-icon svg{width:15px;height:15px}.blocked-icon::after{content:"クリック";position:absolute;right:-2px;top:34px;background:#2c3142;color:#fff;border-radius:6px;padding:3px 6px;font-size:9px;font-weight:800;white-space:nowrap}
+  .browser-content{padding:38px 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .browser-content div{height:45px;border:1px solid #e4e7ee;border-radius:9px;background:#fff}.browser-content div.wide{grid-column:1/-1;height:65px}
+  .permission-pop{position:absolute;right:17px;top:54px;width:250px;padding:15px;border-radius:13px;background:#fff;border:1px solid #dfe2ea;box-shadow:0 18px 38px rgba(31,35,55,.20);color:#24293a}
+  .permission-wrap{position:relative}
+  .permission-pop b{font-size:12px}.permission-pop p{margin:3px 0 10px;color:#656b7c;font-size:10px;line-height:1.45}
+  .radio-row{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:10px}.radio{width:14px;height:14px;border-radius:50%;border:1px solid #b7bdcb}.radio.on{border:4px solid var(--brand)}
+  .pop-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:11px}.pop-actions span{padding:5px 9px;border-radius:7px;background:#f0f2f7;font-size:9px;font-weight:800}.pop-actions span.primary{background:var(--brand);color:#fff}
+
+  /* ---------- Daily flow ---------- */
+  .daily-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .daily-step{position:relative;padding:18px 15px 16px;min-height:180px}
+  .daily-step:not(:last-child)::after{content:"›";position:absolute;right:-12px;top:72px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);z-index:2;color:#a0a6b5;font-size:24px;line-height:1}
+  .daily-step .topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.daily-step .n{font-size:11px;font-weight:900;color:var(--brand)}
+  .daily-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}.daily-icon svg{width:22px;height:22px}
+  .daily-step h3{margin:0 0 5px;font-size:15px}.daily-step p{margin:0;color:var(--sub);font-size:12px}
+  .owner-rule{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:center;margin-top:14px;padding:16px 18px;border-radius:14px;background:linear-gradient(90deg,#eceaff,#f8f8ff);border:1px solid #d9d5ff}
+  .owner-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#fff;color:var(--brand);box-shadow:0 5px 13px rgba(91,83,232,.10)}.owner-icon svg{width:22px;height:22px}
+  .owner-rule b{font-size:14px;color:#37319f}.owner-rule p{margin:2px 0 0;color:#585e72;font-size:12px}
+
+  /* ---------- Checklist ---------- */
+  .checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .check-item{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px 13px;background:#fff}
+  .check-mark{flex:none;width:23px;height:23px;border-radius:7px;display:grid;place-items:center;background:var(--ok-soft);color:var(--ok)}.check-mark svg{width:14px;height:14px}.check-item b{display:block;font-size:12px}.check-item span{display:block;color:var(--sub);font-size:11px;margin-top:1px}
+
+  /* ---------- Troubleshooting ---------- */
+  .trouble-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  details{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden}
+  details[open]{border-color:#cbc7f8;box-shadow:0 8px 22px rgba(91,83,232,.07)}
+  summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:15px 16px;font-weight:900;font-size:13px}
+  summary::-webkit-details-marker{display:none}
+  summary .q{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:12px;flex:none}
+  summary::after{content:"＋";margin-left:auto;color:#8e94a4;font-size:18px;font-weight:500}
+  details[open] summary::after{content:"−"}
+  .answer{padding:0 16px 16px 53px;color:#4e5466;font-size:12px}
+  .answer ol{margin:2px 0 0;padding-left:18px}.answer li{margin:4px 0}.answer b{color:#262b3c}
+  .answer .note{display:block;margin-top:8px;color:var(--brand-dark);font-weight:800}
+
+  /* ---------- Final strip / footer ---------- */
+  .final-strip{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:38px;padding:20px 22px;border-radius:17px;background:#20263a;color:#fff;box-shadow:var(--shadow)}
+  .final-strip b{display:block;font-size:15px}.final-strip p{margin:2px 0 0;color:#bfc5d4;font-size:12px}
+  .print-button{display:inline-flex;align-items:center;gap:8px;flex:none;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:9px 13px;background:rgba(255,255,255,.10);color:#fff;font-weight:900;font-size:12px;cursor:pointer}.print-button:hover{background:rgba(255,255,255,.16)}.print-button svg{width:16px;height:16px}
+  footer{text-align:center;margin-top:24px;color:#9299aa;font-size:11px}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:850px){
+    .hero-grid{grid-template-columns:1fr}.hero{min-height:auto}.hero-visual{min-height:245px;max-width:460px;width:100%;margin:0 auto}
+    .quick-nav{grid-template-columns:1fr 1fr}
+    .instruction-grid{grid-template-columns:1fr}.visual-panel{min-height:285px}
+    .daily-flow{grid-template-columns:1fr 1fr}.daily-step:nth-child(2)::after{display:none}
+    .overview-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:580px){
+    .page{padding:14px 12px 48px}.hero{padding:25px 20px;border-radius:22px}h1{font-size:28px}
+    .hero-visual{min-height:220px}.browser-card{width:285px}.phone-pop{width:180px}.quick-nav{grid-template-columns:1fr}
+    .section-head{margin-top:34px}.section-head p{display:none}.time-badge{display:none}.card-pad{padding:17px}
+    .daily-flow,.checklist,.trouble-layout{grid-template-columns:1fr}.daily-step:not(:last-child)::after{display:none}
+    .permission-pop{width:220px;right:8px}.browser-address{font-size:9px}.owner-rule{align-items:start}.final-strip{align-items:flex-start;flex-direction:column}.print-button{width:100%;justify-content:center}
+  }
+
+  /* ---------- Print ---------- */
+  @media print{
+    @page{size:A4;margin:12mm}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff;font-size:11px}
+    .page{max-width:none;padding:0}
+    .hero{min-height:auto;padding:22px;border-radius:16px;box-shadow:none;break-inside:avoid}
+    .hero-grid{grid-template-columns:1.35fr .65fr;gap:18px}.hero-visual{min-height:190px}.browser-card{width:250px}.phone-pop{width:150px;padding:8px}.hero h1{font-size:25px}.hero p{font-size:11px}.hero-points{margin-top:12px}.hero-point{font-size:9px;padding:5px 7px}
+    .quick-nav,.print-button{display:none!important}
+    .section-head{margin:24px 0 8px}.section-title .num{width:29px;height:29px;border-radius:9px}.section-title h2{font-size:16px}
+    .card{box-shadow:none}.card-pad{padding:14px}.overview-card{min-height:125px;padding:13px}.overview-icon{width:34px;height:34px}.overview-card h3{font-size:12px}.overview-card p,.lead,.steps,.callout,.owner-rule p,.check-item span,.answer{font-size:9px}
+    .instruction-grid{grid-template-columns:1.05fr .95fr}.visual-panel{min-height:230px;padding:12px}.daily-step{min-height:145px;padding:12px}.daily-step h3{font-size:11px}.daily-step p{font-size:9px}
+    details{break-inside:avoid}details[open]{box-shadow:none}summary{padding:10px;font-size:10px}.answer{padding:0 10px 10px 43px}
+    section,.final-strip{break-inside:avoid}.final-strip{margin-top:24px;padding:13px;box-shadow:none}
+    footer{margin-top:10px}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
   <header class="hero">
-    <span class="pill">受電オペレーター向け</span>
-    <h1>Zoom着信 自動ポップアップ 操作マニュアル</h1>
-    <p>電話がかかってくると、CRMが自動で「案件の入力画面」を新しいタブで開きます。受電漏れを防ぎ、その場ですぐ入力できます。</p>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+            受電オペレーター向け
+          </span>
+          <span class="pill">初回設定 約2分</span>
+        </div>
+        <h1>Zoom着信<br>自動ポップアップ<br>操作マニュアル</h1>
+        <p>会社の電話が鳴ると、CRMが該当案件の入力画面を新しいタブで自動表示します。受電後すぐに入力でき、作業中の画面も消えません。</p>
+        <div class="hero-points">
+          <div class="hero-point"><span>✓</span>入力画面を自動表示</div>
+          <div class="hero-point"><span>✓</span>最初から編集モード</div>
+          <div class="hero-point"><span>✓</span>受電者を担当に設定</div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="browser-card">
+          <div class="browser-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i><div class="address">crm-wheat-six-39.vercel.app</div></div>
+          <div class="mini-app">
+            <div class="mini-side"><div class="mini-logo"></div><div class="mini-nav active"></div><div class="mini-nav"></div><div class="mini-nav"></div><div class="mini-nav"></div></div>
+            <div class="mini-main"><div class="mini-title"></div><div class="mini-form"><div class="mini-field"></div><div class="mini-field"></div><div class="mini-field wide"></div><div class="mini-field wide"></div></div><div class="mini-save"></div></div>
+          </div>
+        </div>
+        <div class="phone-pop">
+          <div class="row"><div class="phone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/></svg></div><div><b>Zoom Phone 着信</b><small>案件画面を開いています</small></div></div>
+          <div class="loading"><i></i></div>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <h2><span class="n">✓</span>この機能でできること</h2>
-  <div class="card">
-    <div class="flow">
-      <div class="b"><b>① 着信</b>会社の電話が鳴る</div>
-      <div class="arw">→</div>
-      <div class="b"><b>② 自動オープン</b>該当案件の入力画面が新しいタブで開く（最初から編集モード）</div>
-      <div class="arw">→</div>
-      <div class="b"><b>③ 入力して保存</b>そのまま登録できる</div>
+  <nav class="quick-nav" aria-label="ページ内メニュー">
+    <a href="#overview"><i>✓</i>できること</a>
+    <a href="#setup-seat"><i>1</i>受電席を選ぶ</a>
+    <a href="#setup-popup"><i>2</i>ポップアップ許可</a>
+    <a href="#trouble"><i>?</i>困ったとき</a>
+  </nav>
+
+  <section id="overview">
+    <div class="section-head">
+      <div class="section-title"><span class="num ok">✓</span><div><h2>この機能でできること</h2><p>着信から保存までを、3つの動きにまとめます。</p></div></div>
+      <span class="time-badge">毎回の操作は入力と保存だけ</span>
     </div>
-    <p class="lead" style="margin-top:12px">作業中のタブはそのまま。新しいタブで開くので入力内容は消えません。</p>
-  </div>
 
-  <h2><span class="n">1</span>最初に1回だけ：受電席を選ぶ</h2>
-  <div class="card">
-    <p class="lead">CRMにログインしたら、<b class="hl">左下の「受電席（Zoom）」</b>で、自分が使っている Zoom の席を選びます。</p>
-    <ol class="steps">
-      <li>CRM（<span class="url">crm-wheat-six-39.vercel.app</span>）にログイン（<b>どのアカウントでもOK</b>）</li>
-      <li>左サイドバー下部（自分の名前の下）の <b class="hl">「受電席（Zoom）」</b> を開く</li>
-      <li>自分の席の Zoom アカウントを選ぶ（例：<b>emmet.uketsuke@gmail.com（内線806）</b>）</li>
-    </ol>
-    <div class="mock" aria-hidden="true">
-      <div class="u"><div class="av">小</div><div><b>小嶋 恭介</b><span>k-kojima@rs-rescue.com</span></div></div>
-      <label>受電席（Zoom）</label>
-      <select>
-        <option>emmet.uketsuke@gmail.com（内線806）</option>
-        <option>emmet.uketsuke+1@gmail.com（内線814）</option>
-        <option>emmet.uketsuke+2@gmail.com（内線813）</option>
-        <option>ズームフォン連携なし</option>
-      </select>
+    <div class="overview-grid">
+      <article class="card overview-card">
+        <div class="overview-step"><span>STEP 1</span><div class="overview-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63"/></svg></div></div>
+        <h3>会社の電話が鳴る</h3>
+        <p>選択したZoomの受電席に着信します。</p>
+      </article>
+      <article class="card overview-card">
+        <div class="overview-step"><span>STEP 2</span><div class="overview-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 6.5h.01M11 6.5h.01"/></svg></div></div>
+        <h3>入力画面が自動で開く</h3>
+        <p>該当案件が新しいタブで、編集できる状態で表示されます。</p>
+      </article>
+      <article class="card overview-card">
+        <div class="overview-step"><span>STEP 3</span><div class="overview-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div></div>
+        <h3>内容を入力して保存</h3>
+        <p>受付内容を入力し、「保存する」を押せば完了です。</p>
+      </article>
     </div>
-    <div class="callout ok"><b>ポイント</b>選んだ席はこの端末（ブラウザ）に記憶されます。次回ログイン後もそのまま。CRMのログインは誰のアカウントでも構いません。<b class="hl">ポップの相手は「選んだ席」で決まります。</b></div>
-    <div class="callout warn"><b>ポップを出さない席では</b>「ズームフォン連携なし」を選ぶと、その端末には着信ポップは出ません。</div>
-  </div>
 
-  <h2><span class="n">2</span>最初に1回だけ：ポップアップを許可</h2>
-  <div class="card">
-    <p class="lead">新しいタブを開くため、ブラウザで<b class="hl">ポップアップの許可</b>が必要です（許可しないと開けません）。</p>
-    <ol class="steps">
-      <li>着信時にアドレスバー右端に出る<b>「ポップアップがブロックされました」</b>アイコンをクリック<br>（または アドレスバー左の 🔒 → サイトの設定 → ポップアップとリダイレクト）</li>
-      <li><span class="url">crm-wheat-six-39.vercel.app</span> のポップアップを <b class="hl">「許可」</b> にする</li>
-      <li>CRMのタブを <span class="kbd">⌘</span>+<span class="kbd">Shift</span>+<span class="kbd">R</span> で再読み込み</li>
-    </ol>
-  </div>
+    <div class="important-note">
+      <div class="badge-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+      <div><b>現在作業中のタブはそのまま残ります</b><p>案件画面は新しいタブで開くため、入力途中の内容が消える心配はありません。</p></div>
+    </div>
+  </section>
 
-  <h2><span class="n">3</span>毎日の使い方</h2>
-  <div class="card">
-    <ol class="steps">
-      <li>自分の端末で <b>Zoom Phone にログイン</b>（自分の席の内線）</li>
-      <li>同じ端末のブラウザで <b>CRM にログイン</b>し、受電席が自分の席になっているか確認</li>
-      <li><b class="hl">着信</b> → 自動で案件の入力画面が新しいタブで開く（最初から編集モード）</li>
-      <li>内容を入力して <b>「保存する」</b></li>
-    </ol>
-    <div class="callout ok"><b>担当について</b>着信を受けて画面を開いた<b class="hl">本人が自動で「担当」</b>になります。席のアカウント名ではなく、CRMにログインしているあなたが担当です。</div>
-  </div>
+  <section id="setup-seat">
+    <div class="section-head">
+      <div class="section-title"><span class="num">1</span><div><h2>最初に1回だけ：受電席を選ぶ</h2><p>この端末で、どのZoom内線の着信を表示するか設定します。</p></div></div>
+      <span class="time-badge">目安 1分</span>
+    </div>
 
-  <h2><span class="n">?</span>うまくいかないとき</h2>
-  <div class="card">
-    <dl class="qa">
-      <dt>ポップが出ない</dt>
-      <dd>次を上から確認：① 受電席が正しく選ばれているか（「連携なし」になっていないか）／② ポップアップが許可されているか／③ CRMとZoom Phoneの<b>両方</b>にログインしているか／④ タブを <span class="kbd">⌘</span>+<span class="kbd">Shift</span>+<span class="kbd">R</span> で再読み込み。</dd>
-      <dt>別の人のアカウントでログインしている</dt>
-      <dd>問題ありません。ポップは「選んだ受電席」で決まるので、CRMは誰のアカウントでもOKです。</dd>
-      <dt>担当が自分になっていない</dt>
-      <dd>着信ポップから開いて保存すれば、あなたが担当になります（すでに他の人が受付済みの案件は変わりません）。</dd>
-      <dt>立ち上がりが少し遅い</dt>
-      <dd>その日最初の着信は数秒かかることがあります（システムが"温まる"まで）。2本目以降は速くなります。</dd>
-    </dl>
+    <div class="instruction-grid">
+      <div class="card card-pad">
+        <p class="lead">CRMにログインし、左サイドバー下部の <span class="hl">「受電席（Zoom）」</span> から、自分が使っている席を選択します。</p>
+        <div class="url-wrap">
+          <span class="url" id="crmUrl">crm-wheat-six-39.vercel.app</span>
+          <button class="mini-button" type="button" onclick="copyCrmUrl(this)">URLをコピー</button>
+        </div>
+        <ol class="steps">
+          <li><b>CRMにログインする</b><small>CRMのログインアカウントは誰のものでも問題ありません。</small></li>
+          <li><b>左下の「受電席（Zoom）」を開く</b><small>自分の名前・メールアドレスが表示されている場所の下にあります。</small></li>
+          <li><b>自分が使うZoomアカウントを選ぶ</b><small>例：emmet.uketsuke@gmail.com（内線806）</small></li>
+        </ol>
+      </div>
+
+      <div class="visual-panel" aria-label="受電席選択画面の見本">
+        <div class="mock-user"><div class="avatar">小</div><div><b>小嶋 恭介</b><span>k-kojima@rs-rescue.com</span></div></div>
+        <div class="selector-label"><span>受電席（Zoom）</span><i>この端末に保存</i></div>
+        <select class="mock-select" aria-label="受電席の表示例">
+          <option>emmet.uketsuke@gmail.com（内線806）</option>
+          <option>emmet.uketsuke+1@gmail.com（内線814）</option>
+          <option>emmet.uketsuke+2@gmail.com（内線813）</option>
+          <option>ズームフォン連携なし</option>
+        </select>
+        <div class="remember-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><span>選んだ席は、この端末のブラウザに記憶されます。</span></div>
+        <div class="visual-call"><div class="top"><div class="phone"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07"/></svg></div><div><b>内線806の着信を表示</b><p>選択した席の着信だけが、この端末にポップします。</p></div></div></div>
+      </div>
+    </div>
+
+    <div class="callout ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><div><b>覚えておくこと</b><p>ポップアップの相手は、CRMのログインアカウントではなく <strong>「選んだ受電席」</strong> で決まります。</p></div></div>
+    <div class="callout warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 2.9 1.8 17a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 2.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>ポップを出さない端末</b><p>「ズームフォン連携なし」を選ぶと、その端末には着信ポップが表示されません。</p></div></div>
+  </section>
+
+  <section id="setup-popup">
+    <div class="section-head">
+      <div class="section-title"><span class="num">2</span><div><h2>最初に1回だけ：ポップアップを許可</h2><p>ブラウザが新しいタブを開けるように設定します。</p></div></div>
+      <span class="time-badge">目安 1分</span>
+    </div>
+
+    <div class="instruction-grid">
+      <div class="card card-pad">
+        <p class="lead">ブラウザでポップアップを許可していない場合、着信しても案件画面を自動表示できません。</p>
+        <ol class="steps">
+          <li><b>着信時に、アドレスバー右端のブロックアイコンをクリック</b><small>または、アドレスバー左側の鍵アイコン → サイトの設定 → ポップアップとリダイレクト。</small></li>
+          <li><b><span class="url">crm-wheat-six-39.vercel.app</span> を「許可」にする</b></li>
+          <li><b>CRMを強制再読み込みする</b><small><span class="kbd">⌘</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span></small></li>
+        </ol>
+        <div class="callout info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div><b>Mac版Chromeの操作です</b><p>社内の標準環境を想定しています。表示名が多少違っても、「ポップアップとリダイレクト」を許可すれば同じです。</p></div></div>
+      </div>
+
+      <div class="permission-wrap" aria-label="Chromeでポップアップを許可する画面の見本">
+        <div class="browser-guide">
+          <div class="browser-bar"><div class="browser-controls"><i></i><i></i><i></i></div><div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><div class="browser-address">crm-wheat-six-39.vercel.app</div><div class="blocked-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="13" height="11" rx="1"/><path d="m9 20 11-11M15 9h5v5"/></svg></div></div>
+          <div class="browser-content"><div></div><div></div><div class="wide"></div><div></div><div></div></div>
+        </div>
+        <div class="permission-pop"><b>ポップアップとリダイレクト</b><p>このサイトでポップアップの送信とリダイレクトの使用を許可しますか？</p><div class="radio-row"><span class="radio on"></span><span>常に許可する</span></div><div class="radio-row"><span class="radio"></span><span>引き続きブロックする</span></div><div class="pop-actions"><span>キャンセル</span><span class="primary">完了</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="daily">
+    <div class="section-head">
+      <div class="section-title"><span class="num">3</span><div><h2>毎日の使い方</h2><p>始業時に2か所だけ確認すれば、その後は自動です。</p></div></div>
+      <span class="time-badge">始業時の確認 約10秒</span>
+    </div>
+
+    <div class="daily-flow">
+      <article class="card daily-step"><div class="topline"><span class="n">01</span><div class="daily-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div></div><h3>Zoom Phoneにログイン</h3><p>自分が使用する受電席の内線でログインします。</p></article>
+      <article class="card daily-step"><div class="topline"><span class="n">02</span><div class="daily-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div></div><h3>CRMを開く</h3><p>同じ端末でCRMにログインし、受電席が自分の席か確認します。</p></article>
+      <article class="card daily-step"><div class="topline"><span class="n">03</span><div class="daily-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07"/></svg></div></div><h3>着信を受ける</h3><p>案件入力画面が、新しいタブで自動的に開きます。</p></article>
+      <article class="card daily-step"><div class="topline"><span class="n">04</span><div class="daily-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div></div><h3>入力して保存</h3><p>受付内容を入力し、「保存する」を押して完了です。</p></article>
+    </div>
+
+    <div class="owner-rule"><div class="owner-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><div><b>担当者は「画面を開いて保存した本人」になります</b><p>Zoomの席名ではなく、CRMにログインしている人が担当です。すでに他の人が受付済みの案件は変更されません。</p></div></div>
+
+    <div class="checklist">
+      <div class="check-item"><div class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><b>Zoom Phoneにログイン済み</b><span>自分の席の内線になっている</span></div></div>
+      <div class="check-item"><div class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><b>CRMにログイン済み</b><span>ブラウザでCRMのタブを開いている</span></div></div>
+      <div class="check-item"><div class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><b>受電席が正しい</b><span>「連携なし」や別の席になっていない</span></div></div>
+      <div class="check-item"><div class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div><div><b>ポップアップを許可済み</b><span>CRMサイトの設定が「許可」になっている</span></div></div>
+    </div>
+  </section>
+
+  <section id="trouble">
+    <div class="section-head">
+      <div class="section-title"><span class="num help">?</span><div><h2>うまくいかないとき</h2><p>症状に近い項目を開き、上から順番に確認してください。</p></div></div>
+    </div>
+
+    <div class="trouble-layout">
+      <details open>
+        <summary><span class="q">Q</span>着信してもポップが出ない</summary>
+        <div class="answer">
+          <ol>
+            <li>受電席が正しいか確認する</li>
+            <li>「ズームフォン連携なし」になっていないか確認する</li>
+            <li>ポップアップが許可されているか確認する</li>
+            <li>CRMとZoom Phoneの両方にログインしているか確認する</li>
+            <li><span class="kbd">⌘</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span> で再読み込みする</li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="q">Q</span>別の人のCRMアカウントでログインしている</summary>
+        <div class="answer">問題ありません。着信ポップはCRMのログインアカウントではなく、<b>選択した受電席</b>で決まります。</div>
+      </details>
+
+      <details>
+        <summary><span class="q">Q</span>担当が自分になっていない</summary>
+        <div class="answer">着信ポップから案件を開き、内容を保存すると、CRMにログインしている本人が担当になります。<span class="note">すでに他の人が受付済みの案件は変更されません。</span></div>
+      </details>
+
+      <details>
+        <summary><span class="q">Q</span>その日最初の着信だけ少し遅い</summary>
+        <div class="answer">システムの起動直後は、最初の1件だけ表示まで数秒かかる場合があります。通常は2件目以降、表示が速くなります。</div>
+      </details>
+    </div>
+  </section>
+
+  <div class="final-strip">
+    <div><b>設定は「受電席の選択」と「ポップアップ許可」の2つだけ</b><p>設定後は、Zoom PhoneとCRMを開いておけば、着信時に案件画面が自動表示されます。</p></div>
+    <button class="print-button" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>印刷・PDF保存</button>
   </div>
 
   <footer>Zoom着信 自動ポップアップ／受電オペレーター向け操作マニュアル</footer>
 </div>
+
+<script>
+  function copyCrmUrl(button){
+    const text = 'https://crm-wheat-six-39.vercel.app';
+    const done = () => {
+      const original = button.textContent;
+      button.textContent = 'コピーしました';
+      setTimeout(() => button.textContent = original, 1600);
+    };
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    }else{
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done){
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    area.remove();
+  }
+</script>
 </body>
 </html>
