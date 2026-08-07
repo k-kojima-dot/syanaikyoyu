@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRM セキュリティ強化 実施レポート（2026年8月）</title>
+<style>
+  :root {
+    --ground: #f5f8f6;
+    --surface: #ffffff;
+    --surface-2: #eef3f0;
+    --ink: #142019;
+    --muted: #55655d;
+    --line: #dde5e0;
+    --secure: #0f7d5c;
+    --secure-soft: #e3f2ec;
+    --watch: #a86a12;
+    --watch-soft: #f6ecd8;
+    --crit: #b23b32;
+    --crit-soft: #f6e2df;
+    --shadow: 0 1px 2px rgba(20,32,25,.05), 0 8px 24px rgba(20,32,25,.06);
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0d1411; --surface: #151f1a; --surface-2: #1c2823;
+      --ink: #e7efea; --muted: #93a49b; --line: #283630;
+      --secure: #3fbF93; --secure-soft: #113026;
+      --watch: #d9a441; --watch-soft: #33280f;
+      --crit: #e07a6f; --crit-soft: #3a201c;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0d1411; --surface: #151f1a; --surface-2: #1c2823;
+    --ink: #e7efea; --muted: #93a49b; --line: #283630;
+    --secure: #3fbF93; --secure-soft: #113026;
+    --watch: #d9a441; --watch-soft: #33280f;
+    --crit: #e07a6f; --crit-soft: #3a201c;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --ground: #f5f8f6; --surface: #ffffff; --surface-2: #eef3f0;
+    --ink: #142019; --muted: #55655d; --line: #dde5e0;
+    --secure: #0f7d5c; --secure-soft: #e3f2ec;
+    --watch: #a86a12; --watch-soft: #f6ecd8;
+    --crit: #b23b32; --crit-soft: #f6e2df;
+    --shadow: 0 1px 2px rgba(20,32,25,.05), 0 8px 24px rgba(20,32,25,.06);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .wrap {
+    font-family: var(--sans); color: var(--ink); background: var(--ground);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    padding: clamp(20px, 5vw, 56px) clamp(16px, 5vw, 40px);
+    min-height: 100vh;
+  }
+  .page { max-width: 920px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--secure); font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--secure); display: inline-block; }
+  h1 {
+    font-size: clamp(26px, 4.6vw, 40px); line-height: 1.12; margin: 14px 0 10px;
+    letter-spacing: -.02em; text-wrap: balance; font-weight: 800;
+  }
+  .lede { color: var(--muted); font-size: clamp(15px, 2.2vw, 17px); max-width: 60ch; margin: 0; }
+  .meta {
+    margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 20px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+    border-top: 1px solid var(--line); padding-top: 16px;
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  h2 {
+    font-size: 13px; font-family: var(--mono); letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin: 44px 0 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2 .n {
+    font-size: 11px; color: var(--secure); border: 1px solid var(--line);
+    border-radius: 5px; padding: 1px 6px; background: var(--surface);
+  }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow);
+  }
+  .card.hero { border-top: 3px solid var(--secure); }
+  .card h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono);
+    font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .chip.done { color: var(--secure); background: var(--secure-soft); }
+  .chip.crit { color: var(--crit); background: var(--crit-soft); }
+  .chip.watch { color: var(--watch); background: var(--watch-soft); }
+  .chip::before { content:""; width:6px; height:6px; border-radius:50%; background: currentColor; }
+
+  .stat-row { display:flex; align-items:baseline; gap:10px; margin-top: 14px; }
+  .stat { font-size: 30px; font-weight: 800; letter-spacing:-.02em; font-variant-numeric: tabular-nums; }
+  .stat-l { font-size: 13px; color: var(--muted); }
+
+  ul.clean { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  ul.clean li { display:flex; gap:10px; align-items:flex-start; font-size:14.5px; }
+  ul.clean li::before {
+    content:"✓"; color: var(--secure); font-weight: 800; font-size: 13px;
+    margin-top: 2px; flex: none;
+  }
+  code {
+    font-family: var(--mono); font-size: .86em; background: var(--surface-2);
+    border: 1px solid var(--line); padding: 1px 6px; border-radius: 5px; color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .flow {
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top: 14px;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .flow .b { padding:6px 12px; border-radius:8px; border:1px solid var(--line); background: var(--surface-2); }
+  .flow .b.bad { color: var(--crit); border-color: color-mix(in srgb, var(--crit) 40%, var(--line)); }
+  .flow .b.good { color: var(--secure); border-color: color-mix(in srgb, var(--secure) 40%, var(--line)); background: var(--secure-soft); }
+  .flow .arw { color: var(--muted); }
+
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 460px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--mono); font-size: 11px; letter-spacing:.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.k { font-family: var(--mono); color: var(--ink); white-space: nowrap; }
+  td .ok { color: var(--secure); font-weight: 700; }
+  .layer { font-weight: 700; }
+
+  ol.rank { list-style: none; counter-reset: r; margin: 0; padding: 0; display:flex; flex-direction:column; gap:10px; }
+  ol.rank li {
+    counter-increment: r; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px 14px 52px; position: relative; box-shadow: var(--shadow);
+  }
+  ol.rank li::before {
+    content: counter(r); position:absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 7px; background: var(--surface-2);
+    border: 1px solid var(--line); display:grid; place-items:center;
+    font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--ink);
+  }
+  ol.rank .t { font-weight: 700; font-size: 15px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  ol.rank .d { color: var(--muted); font-size: 14px; margin-top: 3px; }
+
+  .note {
+    margin-top: 40px; padding: 16px 18px; border-radius: 12px;
+    background: var(--surface-2); border: 1px solid var(--line);
+    font-size: 13.5px; color: var(--muted);
+  }
+  .note b { color: var(--ink); }
+  footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  a { color: var(--secure); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="page">
+
+    <div class="eyebrow">CRM Security · 実施レポート</div>
+    <h1>顧客情報を守るCRMの<br>セキュリティ強化 — 2026年8月</h1>
+    <p class="lede">今月の重大な穴を1件塞ぎ、あわせて「毎月かならず点検が回る仕組み」を新設しました。本番反映・稼働確認まで完了しています。</p>
+    <div class="meta">
+      <span><b>対象</b> crm-wheat-six-39.vercel.app</span>
+      <span><b>実施日</b> 2026-08-08</span>
+      <span><b>反映</b> main / commit <b>aa66478</b></span>
+      <span><b>状態</b> <span style="color:var(--secure)">本番稼働中 ✓</span></span>
+    </div>
+
+    <!-- サマリ -->
+    <h2><span class="n">01</span> 今回の成果</h2>
+    <div class="grid2">
+      <div class="card hero">
+        <span class="chip done">完了・本番反映済み</span>
+        <h3 style="margin-top:12px">① 今月の改善</h3>
+        <p>オフィス側APIのロールガード追加。<b style="color:var(--ink)">作業員アカウントから顧客情報が全件読めてしまう</b>重大な穴を封鎖。</p>
+        <div class="stat-row"><span class="stat" style="color:var(--crit)">Critical</span><span class="stat-l">を1件解消</span></div>
+      </div>
+      <div class="card hero">
+        <span class="chip done">稼働開始</span>
+        <h3 style="margin-top:12px">② 毎月の仕組み</h3>
+        <p>自動チェック・CI・月次レビュー・手順書の<b style="color:var(--ink)">4層</b>で、毎月かならず点検が回る体制を構築。</p>
+        <div class="stat-row"><span class="stat" style="color:var(--secure)">毎月1日</span><span class="stat-l">に自動実行</span></div>
+      </div>
+    </div>
+
+    <!-- 修正内容 -->
+    <h2><span class="n">02</span> 何が危なくて、どう直したか</h2>
+    <div class="card">
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px">
+        <span class="chip crit">Broken Access Control / IDOR</span>
+      </div>
+      <p style="color:var(--ink); font-size:15px; margin-bottom:4px"><b>問題</b>：受付/管理用のAPIが「ログイン済みか」だけを見て「役割」を確認していませんでした。そのため最下位権限の<b>作業員(WORKER)アカウントでも、直接APIを叩けば顧客の氏名・住所・電話番号を全件閲覧でき、案件の改変までできる</b>状態でした。</p>
+      <div class="flow">
+        <span class="b bad">作業員アカウント</span>
+        <span class="arw">→</span>
+        <span class="b">オフィス用API</span>
+        <span class="arw">→</span>
+        <span class="b bad">顧客PII全件が丸見え</span>
+      </div>
+      <div class="flow" style="margin-top:8px">
+        <span class="b good">修正後</span>
+        <span class="arw">→</span>
+        <span class="b">役割チェック <code>isOfficeSideRole()</code></span>
+        <span class="arw">→</span>
+        <span class="b good">管理者/オペレーターのみ許可・作業員は403拒否</span>
+      </div>
+      <p style="margin-top:16px; color:var(--ink); font-weight:600; font-size:13.5px">封鎖したエンドポイント</p>
+      <ul class="clean" style="margin-top:8px">
+        <li><code>GET / POST /api/cases</code> — 案件一覧・新規作成</li>
+        <li><code>GET / PUT /api/cases/[id]</code> — 案件詳細・更新（削除は既に管理者限定）</li>
+        <li><code>POST /api/cases/[id]/claim</code> — 着信案件の担当引き当て</li>
+        <li><code>GET /api/dashboard/document-logs</code> — 会社横断の帳票・請求履歴</li>
+      </ul>
+      <p style="margin-top:14px; font-size:13.5px">作業員の画面は <code>/api/worker/*</code> しか使っていないため、<b style="color:var(--secure)">今回の変更による現場への影響はありません</b>（全呼び出し元が管理画面配下であることを確認済み）。</p>
+    </div>
+
+    <!-- 検証 -->
+    <h2><span class="n">03</span> 反映後の稼働確認</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>チェック</th><th>結果</th><th>意味</th></tr></thead>
+        <tbody>
+          <tr><td class="k">ローカル型チェック / 本番ビルド</td><td><span class="ok">pass</span></td><td>Vercelと同条件のビルドが成功</td></tr>
+          <tr><td class="k">/login</td><td><span class="ok">200</span></td><td>画面は正常表示（ビルド破損なし）</td></tr>
+          <tr><td class="k">/api/cases（未認証）</td><td><span class="ok">401</span></td><td>エラー(500)でなく正常応答＝変更コードが動作</td></tr>
+          <tr><td class="k">セキュリティヘッダー</td><td><span class="ok">継続付与</span></td><td>HSTS / X-Frame-Options 等は維持</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-top:10px">※「作業員で叩くと403」の実データ確認だけは作業員テストアカウントが必要なため未実施。ご希望あれば確定確認します。</p>
+
+    <!-- 仕組み -->
+    <h2><span class="n">04</span> 毎月まわる点検の仕組み</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>層</th><th>実体</th><th>担当する役割</th></tr></thead>
+        <tbody>
+          <tr><td class="k layer">自動スクリプト</td><td class="k"><code>npm run security-check</code></td><td>npm audit集計・本番ヘッダー(CSP)確認・API認可の自動点検・秘密情報の混入検査</td></tr>
+          <tr><td class="k layer">CI（自動）</td><td class="k">GitHub Actions</td><td>毎月1日に自動実行。重大な指摘があれば<b>Issueを自動作成</b></td></tr>
+          <tr><td class="k layer">月次レビュー</td><td class="k">Claudeルーティン</td><td>毎月1日 9:00 に、人の判断が要る深いレビュー（新規APIの権限確認など）を実施し報告</td></tr>
+          <tr><td class="k layer">手順書</td><td class="k">SECURITY_CHECKLIST.md</td><td>管理者権限の棚卸し・バックアップ確認など、人が見る項目</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px; margin-top:12px">早速この仕組みが機能し、初回実行で<b style="color:var(--ink)">認証が抜けたマスタAPIを2件検出</b>（個人情報は含まず軽微）。仕組みが「見張り」として働いている証拠です。</p>
+
+    <!-- 来月 -->
+    <h2><span class="n">05</span> 来月以降の候補（重大度順・毎月1件ずつ）</h2>
+    <ol class="rank">
+      <li><div class="t">依存ライブラリの脆弱性更新 <span class="chip crit">High〜Critical</span></div><div class="d">認証ライブラリ等に既知の脆弱性。修正は大型アップデートを伴い要検証。</div></li>
+      <li><div class="t">CSP（コンテンツセキュリティポリシー）追加 <span class="chip watch">Medium</span></div><div class="d">他のヘッダーは設定済み。XSS対策の最後の一枚。まず監視モードから段階導入。</div></li>
+      <li><div class="t">監査ログの導入 <span class="chip watch">Medium</span></div><div class="d">「誰がいつ顧客情報を見た/変えた」の記録がない。個情法対応としても重要。</div></li>
+      <li><div class="t">AIへの個人情報送信の整理 <span class="chip watch">Medium</span></div><div class="d">通話文字起こしをGeminiへ送る箇所。同意・契約面の整理。</div></li>
+      <li><div class="t">マスタAPI2件の認証追加 <span class="chip done">Low</span></div><div class="d">今月の点検が検出。個人情報なしで軽微だが、整合のため対応推奨。</div></li>
+    </ol>
+
+    <div class="note">
+      <b>次の一手のおすすめ：</b> マスタAPI2件（軽微）は放置すると毎月CIが警告を出し続けるため、早めに「認証追加」か「意図的公開として明示」のどちらかを決めておくと、月次の警告がクリーンに保てます。来月の「1件」は上位の<b>依存脆弱性の更新</b>か<b>CSP導入</b>が有力候補です。
+    </div>
+
+    <footer>
+      月次レビュー管理: claude.ai/code/routines · 初回全体監査: SECURITY_AUDIT.md (2026-05) · 本レポートは実施記録として保存
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
