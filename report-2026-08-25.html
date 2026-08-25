@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>朝のレポート（自社分）</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#fff; --line:#e2e8f0; --ink:#0f172a; --sub:#64748b;
+    --muted:#94a3b8; --accent:#4f46e5; --pos:#047857; --neg:#dc2626; --warnbg:#fffbeb; --warnline:#fcd34d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:24px 16px; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    line-height:1.65; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:900px;margin:0 auto;}
+  header{
+    background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff;
+    border-radius:16px; padding:24px 26px; margin-bottom:20px;
+  }
+  header h1{margin:0 0 6px; font-size:22px; letter-spacing:.02em;}
+  header .meta{font-size:12px; opacity:.92;}
+  header .meta span{display:inline-block; margin-right:14px; white-space:nowrap;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; margin-bottom:14px;
+  }
+  .card h2{
+    margin:0 0 14px; font-size:15px; display:flex; align-items:center; gap:9px;
+    padding-bottom:10px; border-bottom:1px solid var(--line);
+  }
+  .idx{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:6px; background:var(--accent);
+    color:#fff; font-size:12px; font-weight:700; flex:none;
+  }
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px;}
+  .kpi{background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:10px 12px;}
+  .k{font-size:11px; color:var(--sub); margin-bottom:3px; word-break:break-all;}
+  .v{font-size:17px; font-weight:700; font-variant-numeric:tabular-nums; word-break:break-all;}
+  .v.money{color:var(--pos);}
+  .v.neg{color:var(--neg);}
+  .comment{
+    margin:14px 0 0; padding:11px 13px; background:#f8fafc;
+    border-left:3px solid var(--accent); border-radius:0 8px 8px 0;
+    font-size:13px; color:#334155;
+  }
+  .note{margin:8px 0 0; font-size:11px; color:var(--muted);}
+  .warn{background:var(--warnbg); border-color:var(--warnline);}
+  .warn h2{border-bottom-color:var(--warnline);}
+  .warn ul{margin:0; padding-left:18px; font-size:12px; color:#78350f;}
+  .warn li{margin-bottom:5px; white-space:pre-wrap;}
+  footer{text-align:center; font-size:11px; color:var(--muted); margin-top:18px;}
+  @media (max-width:520px){
+    body{padding:14px 10px;}
+    header{padding:18px;} header h1{font-size:18px;}
+    .kpis{grid-template-columns:repeat(2,1fr);}
+    .v{font-size:15px;}
+  }
+  @media print{
+    body{background:#fff; padding:0;}
+    header{background:var(--accent) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .card{break-inside:avoid; page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>朝のレポート（自社分）</h1>
+      <div class="meta"><span>対象期間（受付日）: 2026/08/01 〜 2026/08/24</span><span>生成: 2026-08-25 06:51</span><span>※ADM送客分は含みません</span></div>
+    </header>
+    
+      <section class="card">
+        <h2><span class="idx">1</span>まちのガラス屋</h2>
+        <div class="kpis">
+          
+            <div class="kpi">
+              <div class="k">訪問確定</div>
+              <div class="v">62 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総売上</div>
+              <div class="v money">¥2,116,600</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問単価</div>
+              <div class="v money">¥38,484</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総広告費</div>
+              <div class="v money">¥1,323,775</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPA</div>
+              <div class="v money">¥15,043</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPO</div>
+              <div class="v money">¥21,351</div>
+            </div>
+            <div class="kpi">
+              <div class="k">Emmet最終粗利</div>
+              <div class="v money">¥25,925</div>
+            </div>
+            <div class="kpi">
+              <div class="k">RSX粗利</div>
+              <div class="v money">¥726,500</div>
+            </div>
+        </div>
+        <p class="comment">ガラスは訪問確定62件・売上¥2,116,600。総広告費¥1,323,775（CPA ¥15,043／CPO ¥21,351）を差し引いたEmmet最終粗利は¥25,925。RSX粗利は¥726,500。</p>
+        
+      </section>
+      <section class="card">
+        <h2><span class="idx">2</span>まちの金庫救急隊</h2>
+        <div class="kpis">
+          
+            <div class="kpi">
+              <div class="k">訪問確定</div>
+              <div class="v">29 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総売上</div>
+              <div class="v money">¥2,227,830</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問単価</div>
+              <div class="v money">¥85,686</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総広告費</div>
+              <div class="v money">¥906,195</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPA</div>
+              <div class="v money">¥21,576</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPO</div>
+              <div class="v money">¥31,248</div>
+            </div>
+            <div class="kpi">
+              <div class="k">Emmet最終粗利</div>
+              <div class="v money">¥8,405</div>
+            </div>
+            <div class="kpi">
+              <div class="k">RSX粗利</div>
+              <div class="v money">¥1,260,430</div>
+            </div>
+        </div>
+        <p class="comment">まちの金庫救急隊は訪問確定29件・売上¥2,227,830。総広告費¥906,195（CPA ¥21,576／CPO ¥31,248）を差し引いたEmmet最終粗利は¥8,405。RSX粗利は¥1,260,430。</p>
+        
+      </section>
+      <section class="card">
+        <h2><span class="idx">3</span>ハチ駆除（リスティング／まちのハチ駆除救急隊）</h2>
+        <div class="kpis">
+          
+            <div class="kpi">
+              <div class="k">件数</div>
+              <div class="v">57 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問確定</div>
+              <div class="v">34 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総収入</div>
+              <div class="v money">¥723,800</div>
+            </div>
+            <div class="kpi">
+              <div class="k">　うち自社施工売上</div>
+              <div class="v money">¥0</div>
+            </div>
+            <div class="kpi">
+              <div class="k">　うち送客収入</div>
+              <div class="v money">¥723,800</div>
+            </div>
+            <div class="kpi">
+              <div class="k">総広告費</div>
+              <div class="v money">¥1,005,480</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPA</div>
+              <div class="v money">¥21,393</div>
+            </div>
+            <div class="kpi">
+              <div class="k">CPO</div>
+              <div class="v money">¥29,573</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問単価（Emmet）</div>
+              <div class="v">—</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問単価（RSX）</div>
+              <div class="v money">¥12,283</div>
+            </div>
+            <div class="kpi">
+              <div class="k">最終粗利</div>
+              <div class="v neg">¥-281,680</div>
+            </div>
+            <div class="kpi">
+              <div class="k">RSX粗利</div>
+              <div class="v neg">¥-58,300</div>
+            </div>
+        </div>
+        <p class="comment">ハチ駆除（リスティング）は57件・訪問確定34件。総収入¥723,800（自社施工¥0＋送客収入¥723,800）から総広告費¥1,005,480を差し引いた最終粗利は¥-281,680。RSX粗利は¥-58,300。</p>
+        
+      </section>
+      <section class="card">
+        <h2><span class="idx">4</span>ハチ駆除（SEO／蜂の巣駆除PRO）</h2>
+        <div class="kpis">
+          
+            <div class="kpi">
+              <div class="k">件数</div>
+              <div class="v">71 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問確定</div>
+              <div class="v">49 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問単価</div>
+              <div class="v money">¥40,150</div>
+            </div>
+            <div class="kpi">
+              <div class="k">売上</div>
+              <div class="v money">¥1,525,700</div>
+            </div>
+            <div class="kpi">
+              <div class="k">Emmet/LR粗利</div>
+              <div class="v money">¥200,090</div>
+            </div>
+            <div class="kpi">
+              <div class="k">RSX粗利</div>
+              <div class="v money">¥803,220</div>
+            </div>
+        </div>
+        <p class="comment">ハチ駆除（SEO）は71件・訪問確定49件、売上¥1,525,700。Emmet/LR粗利¥200,090／RSX粗利¥803,220。</p>
+        
+      </section>
+      <section class="card">
+        <h2><span class="idx">5</span>鳩対策（SEO／鳩対策PRO）</h2>
+        <div class="kpis">
+          
+            <div class="kpi">
+              <div class="k">件数</div>
+              <div class="v">25 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">訪問確定</div>
+              <div class="v">17 件</div>
+            </div>
+            <div class="kpi">
+              <div class="k">売上</div>
+              <div class="v money">¥1,196,720</div>
+            </div>
+            <div class="kpi">
+              <div class="k">Emmet/LR粗利</div>
+              <div class="v money">¥231,872</div>
+            </div>
+            <div class="kpi">
+              <div class="k">RSX粗利</div>
+              <div class="v money">¥605,832</div>
+            </div>
+        </div>
+        <p class="comment">鳩対策は25件・訪問確定17件、売上¥1,196,720、Emmet/LR粗利¥231,872／RSX粗利¥605,832。</p>
+        
+      </section>
+    
+    <footer>自動生成レポート（ブラウザ内で作成・データは外部に送信されません）</footer>
+  </div>
+</body>
+</html>
