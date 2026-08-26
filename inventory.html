@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>管理部の在庫画面ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F5F3F0; --panel:#FFFFFF; --panel-2:#EBE7E1; --sunk:#FAF9F7;
+  --ink:#1B1A17; --ink-2:#524E47; --ink-3:#837D73;
+  --rule:#DED9D1; --rule-2:#C6BFB4;
+  --accent:#2E5A44; --accent-soft:#E2EDE6;
+  --warn:#8A5A11; --warn-soft:#F7EEDD;
+  --stop:#8C2F22; --stop-soft:#F8E7E3;
+  --shadow:0 1px 2px rgba(27,26,23,.05), 0 10px 26px -16px rgba(27,26,23,.28);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#121210; --panel:#1A1A17; --panel-2:#23231F; --sunk:#161613;
+  --ink:#EDEAE4; --ink-2:#ADA79C; --ink-3:#837D73;
+  --rule:#2C2C27; --rule-2:#3D3C35;
+  --accent:#7FBFA0; --accent-soft:#16261D;
+  --warn:#D9A85A; --warn-soft:#2A2114;
+  --stop:#E08A78; --stop-soft:#2C1714;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 26px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --ground:#121210; --panel:#1A1A17; --panel-2:#23231F; --sunk:#161613;
+  --ink:#EDEAE4; --ink-2:#ADA79C; --ink-3:#837D73;
+  --rule:#2C2C27; --rule-2:#3D3C35;
+  --accent:#7FBFA0; --accent-soft:#16261D;
+  --warn:#D9A85A; --warn-soft:#2A2114;
+  --stop:#E08A78; --stop-soft:#2C1714;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 26px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;font-size:15px;line-height:1.9;-webkit-font-smoothing:antialiased}
+.wrap{max-width:800px;margin:0 auto;padding:52px 22px 96px;display:flex;flex-direction:column;gap:42px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:"M PLUS 1p",sans-serif;font-weight:700;font-size:clamp(25px,4.4vw,34px);line-height:1.35;margin:10px 0 0;text-wrap:balance}
+.lede{color:var(--ink-2);margin:14px 0 0;max-width:60ch}
+h2{font-family:"M PLUS 1p",sans-serif;font-weight:700;font-size:19px;margin:0}
+h3{font-family:"M PLUS 1p",sans-serif;font-weight:500;font-size:15px;margin:0 0 4px}
+section{display:flex;flex-direction:column;gap:16px}
+.head{display:flex;flex-direction:column;gap:3px;padding-bottom:11px;border-bottom:1px solid var(--rule)}
+.note{color:var(--ink-3);font-size:13.5px;margin:0}
+p{margin:0}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+b{font-weight:700}
+
+.stop{border:1px solid var(--stop);background:var(--stop-soft);border-radius:3px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.stop .t{font-family:"M PLUS 1p",sans-serif;font-weight:700;font-size:16px;color:var(--stop)}
+.stop p{font-size:14.5px;color:var(--ink-2)}
+
+.cards{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden;box-shadow:var(--shadow)}
+@media(min-width:620px){.cards{grid-template-columns:1fr 1fr}}
+.cards>div{background:var(--panel);padding:18px 20px;display:flex;flex-direction:column;gap:7px}
+.cards .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.cards .s{font-size:13.5px;color:var(--ink-2)}
+
+.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--panel);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:10px 15px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:500;background:var(--panel-2);border-bottom:1px solid var(--rule-2);white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.w{min-width:13em}
+.tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11px;padding:2px 8px;border-radius:2px;background:var(--accent-soft);color:var(--accent);font-weight:500;white-space:nowrap}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+
+.steps{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:3px;background:var(--panel);overflow:hidden;box-shadow:var(--shadow)}
+.steps>div{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.steps>div:last-child{border-bottom:none}
+.steps .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);padding-top:4px}
+.steps .b{display:flex;flex-direction:column;gap:3px;min-width:0}
+.steps .d{font-size:13.5px;color:var(--ink-2)}
+
+.cols{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--sunk);border:1px solid var(--rule);border-radius:3px;padding:13px 15px;overflow-x:auto;white-space:pre;line-height:1.9;color:var(--ink-2)}
+ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:8px}
+li::marker{color:var(--accent)}
+footer{border-top:1px solid var(--rule);padding-top:20px;color:var(--ink-3);font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">RSX CRM ／ 管理部（在庫）</div>
+  <h1>9月から、部材の使用実績がCRMで見られるようになります</h1>
+  <p class="lede">どの部材を、どの作業員が、どの案件で使ったか。画面で集計を見て、CSVで落とせます。ただし作業員の入力の仕方によっては1件も出ません。そこだけ先にお伝えします。</p>
+</header>
+
+<div class="stop">
+  <span class="t">いちばん大事なこと</span>
+  <p><b>作業員が見積を作るとき「在庫マスタから選ぶ」必要があります。</b>部材名を手で打ち込むと、集計にも棚卸しにも出てきません。在庫マスタから選べば、在庫番号・メーカー・型番・仕入原価まで自動でひもづきます。</p>
+  <p>現時点で在庫マスタとひもづいている実績は <b>4件</b> しかありません。9/1の運用開始にあたり、現場への周知をお願いします。</p>
+</div>
+
+<section>
+  <div class="head">
+    <h2>使える画面は2つです</h2>
+    <p class="note">左メニューの「在庫ダッシュボード」から入り、上のタブで切り替えます。</p>
+  </div>
+  <div class="cards">
+    <div>
+      <span class="k">在庫サマリー</span>
+      <h3>金額で見る</h3>
+      <span class="s">使用点数・請求額・仕入原価・粗利の4つを大きく出します。その下に作業員別と部材別の集計、いちばん下に明細です。「今月いくら使ったか」を見る画面です。</span>
+    </div>
+    <div>
+      <span class="k">使用在庫トラッキング</span>
+      <h3>数量で見る</h3>
+      <span class="s">在庫番号ごとに、どのエリアのどの作業員が何個使ったかを表にします。エリアごとに小計、右端に合計。「この部材が誰のところで減っているか」を見る画面です。</span>
+    </div>
+  </div>
+  <p class="note">どちらも <b>受付日・訪問日・担当会社・作業員</b> で絞り込めます。絞り込んだ条件は、そのままCSVにも反映されます。</p>
+</section>
+
+<section>
+  <div class="head">
+    <h2>CSVは3種類</h2>
+    <p class="note">画面右上のボタンから落とせます。すべてExcelでそのまま開けます。</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>ボタン</th><th class="w">中身</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tag">使用在庫CSV</span></td>
+          <td class="w">1行1明細。使用日・管理番号・報告者・メールアドレス・エリア・在庫種類・在庫番号・個数</td>
+          <td class="w">棚卸し・発注。<b>これまでお使いのCSVと同じ8列・同じ並び</b>です</td>
+        </tr>
+        <tr>
+          <td><span class="tag">案件CSV（ダウンロード）</span></td>
+          <td class="w">121列</td>
+          <td class="w">案件の全項目。経理が使っているものと同じ形式です</td>
+        </tr>
+        <tr>
+          <td><span class="tag">案件CSV（簡易）</span></td>
+          <td class="w">39列</td>
+          <td class="w">案件の主要項目だけ。ざっと見るとき用</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cols">使用在庫CSVの列
+使用日 / 管理番号 / 報告者 / 報告者のメールアドレス / エリア / 在庫種類 / 在庫番号 / 個数</div>
+  <p class="note">在庫種類の表記も現行CSVに合わせてあります（CRMの画面では「害虫害獣」ですが、CSVは「害虫・害獣」で出ます）。</p>
+</section>
+
+<section>
+  <div class="head">
+    <h2>使いはじめる手順</h2>
+  </div>
+  <div class="steps">
+    <div>
+      <span class="n">01</span>
+      <div class="b">
+        <span>ロールを「管理部（在庫）」にしてもらう</span>
+        <span class="d">管理者設定 → ユーザー から変更します。小嶋さんにご依頼ください。変更後、左メニューに「在庫ダッシュボード」が出ます。</span>
+      </div>
+    </div>
+    <div>
+      <span class="n">02</span>
+      <div class="b">
+        <span>案件も売上も見られます</span>
+        <span class="d">在庫だけでなく、案件一覧・売上も閲覧できる権限です。必要な情報は自分で追えます。</span>
+      </div>
+    </div>
+    <div>
+      <span class="n">03</span>
+      <div class="b">
+        <span>作業員に「在庫マスタから選ぶ」を徹底してもらう</span>
+        <span class="d">ここが抜けると画面もCSVも空のままです。在庫マスタは512件登録済みで、8/20版の価格表に更新してあります。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <h2>まだ無いもの</h2>
+    <p class="note">現行システムのメニューにある、以下のレポートはまだ作っていません。</p>
+  </div>
+  <ul>
+    <li>成績／作業員別レポート／都道府県別レポート／都道府県担当会社区分別レポート</li>
+    <li>売上粗利推移レポート／CC目標管理／CC目標業種別管理</li>
+  </ul>
+  <p class="note">押せるのに中身が無い状態は混乱のもとなので、メニューには出していません。<b>必要なものから順に作りますので、優先順位を教えてください。</b>画面のスクリーンショットをいただければ、今回の使用在庫トラッキングと同じように現行の形に寄せて作ります。</p>
+</section>
+
+<footer>
+  不具合・要望は小嶋までご連絡ください。画面の見え方や項目の並びは、実際に使ってみて出てきたご意見に合わせて直します。
+</footer>
+
+</div>
+
+</body>
+</html>
