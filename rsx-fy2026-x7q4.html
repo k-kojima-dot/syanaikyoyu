@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>RSX FY2026 業績見通し</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FBFAF7; --surface:#FFFFFF; --ink:#232A3B; --ink2:#5A6172; --ink3:#8B90A0;
+  --line:#E4E2DA; --line2:#EFEDE6;
+  --accent:#3E66AC; --accent-soft:#E8EEF8;
+  --hachi:#B87A25; --hachi-soft:#F6EBDA;
+  --good:#2E7D5B; --good-soft:#E3F0EA; --bad:#BC4633; --bad-soft:#F7E7E3;
+  --chip-hi:#2E7D5B; --chip-mid:#B87A25; --chip-lo:#BC4633;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161A26; --surface:#1C2130; --ink:#E6E8EF; --ink2:#A7ACBD; --ink3:#787E92;
+    --line:#323950; --line2:#272D40;
+    --accent:#6E93D6; --accent-soft:#26314A;
+    --hachi:#BE8630; --hachi-soft:#33291A;
+    --good:#4CAF87; --good-soft:#1E3229; --bad:#DE7258; --bad-soft:#3A241F;
+    --chip-hi:#4CAF87; --chip-mid:#BE8630; --chip-lo:#DE7258;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161A26; --surface:#1C2130; --ink:#E6E8EF; --ink2:#A7ACBD; --ink3:#787E92;
+  --line:#323950; --line2:#272D40;
+  --accent:#6E93D6; --accent-soft:#26314A;
+  --hachi:#BE8630; --hachi-soft:#33291A;
+  --good:#4CAF87; --good-soft:#1E3229; --bad:#DE7258; --bad-soft:#3A241F;
+  --chip-hi:#4CAF87; --chip-mid:#BE8630; --chip-lo:#DE7258;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans JP',system-ui,sans-serif;
+  font-size:14px;line-height:1.75;margin:0;font-feature-settings:"palt";}
+.wrap{max-width:1040px;margin:0 auto;padding:40px 28px 80px}
+h1,h2,h3{font-family:'Zen Kaku Gothic New','IBM Plex Sans JP',sans-serif;line-height:1.35;text-wrap:balance;margin:0}
+.num{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--accent);margin-bottom:6px}
+header.hero{padding:18px 0 26px;border-bottom:3px solid var(--ink)}
+header.hero h1{font-size:34px;font-weight:900}
+header.hero .sub{color:var(--ink2);margin-top:8px;max-width:64ch}
+.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--ink3)}
+section{margin-top:52px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:22px}
+.sec-head .no{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:15px;color:var(--accent)}
+.sec-head h2{font-size:21px;font-weight:700}
+.sec-head .note{margin-left:auto;font-size:12px;color:var(--ink3)}
+.lede{max-width:68ch;color:var(--ink2);margin:0 0 20px}
+.lede strong{color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:26px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px 14px;position:relative;overflow:hidden}
+.kpi .lb{font-size:12px;font-weight:700;color:var(--ink2)}
+.kpi .v{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:30px;line-height:1.15;margin-top:6px}
+.kpi .d{font-size:12px;color:var(--ink3);margin-top:6px}
+.kpi.good .v{color:var(--good)} .kpi.bad .v{color:var(--bad)} .kpi.acc .v{color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.fbox{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;min-width:170px;flex:1}
+.fbox .t{font-size:12px;font-weight:700;color:var(--ink2)}
+.fbox .n{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:22px;margin-top:2px}
+.fbox .s{font-size:11.5px;color:var(--ink3);margin-top:4px;line-height:1.55}
+.farr{display:flex;align-items:center;padding:0 10px;color:var(--ink3);font-size:12px;flex-direction:column;justify-content:center;gap:2px}
+.farr b{font-size:14px;color:var(--ink)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1.6;min-width:340px}
+.fbox.own{border-color:var(--accent);background:var(--accent-soft)}
+.fbox.out{border-color:var(--line)}
+.fbox.res{border-color:var(--good);background:var(--good-soft)}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.chart h3{font-size:15px;font-weight:700}
+.chart .cap{font-size:12px;color:var(--ink3);margin-top:2px}
+.legend{display:flex;gap:18px;font-size:12px;color:var(--ink2);margin:12px 0 4px;flex-wrap:wrap}
+.legend .it{display:flex;align-items:center;gap:6px}
+.sw{width:14px;height:10px;border-radius:2.5px;background:var(--accent)}
+.sw.fc{background:repeating-linear-gradient(135deg,var(--accent) 0 3px,transparent 3px 6px);border:1px solid var(--accent)}
+.sw.ghost{width:10px;height:10px;border-radius:50%;background:none;border:2px solid var(--ink3)}
+.cols{display:flex;gap:8px;align-items:flex-end;height:230px;margin-top:14px}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.bar{width:70%;max-width:44px;background:var(--accent);border-radius:4px 4px 0 0;position:relative;min-height:3px}
+.bar.fc{background:repeating-linear-gradient(135deg,var(--accent) 0 4px,var(--surface) 4px 8px);border:1.5px solid var(--accent);border-bottom:none}
+.ghost{position:absolute;width:9px;height:9px;border:2.5px solid var(--ink3);border-radius:50%;left:50%;transform:translate(-50%,50%);background:var(--surface);z-index:2}
+.col .vl{font-size:10.5px;color:var(--ink2);margin-bottom:4px;font-weight:500}
+.col .ml{font-size:11px;color:var(--ink3);margin-top:8px}
+.col .tip{visibility:hidden;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);font-size:11px;line-height:1.6;padding:7px 10px;border-radius:7px;white-space:nowrap;z-index:5}
+.col:hover .tip{visibility:visible}
+.baseline{border-top:1.5px solid var(--line);margin:0}
+.annot{font-size:11.5px;color:var(--ink3)}
+.mixrow{display:flex;align-items:center;gap:14px;margin-top:14px}
+.mixlab{width:150px;font-size:12.5px;font-weight:700;color:var(--ink2);flex-shrink:0}
+.mixbar{flex:1;display:flex;height:34px;border-radius:6px;overflow:hidden;gap:2px}
+.mseg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.mseg.h{background:var(--hachi)} .mseg.n{background:var(--accent)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line2);font-size:13.5px}
+th{font-size:12px;color:var(--ink2);font-weight:700;border-bottom:1.5px solid var(--line)}
+td:first-child,th:first-child{text-align:left}
+tr.total td{border-top:2px solid var(--ink);border-bottom:none;font-weight:700}
+.pos{color:var(--good);font-weight:700}.neg{color:var(--bad);font-weight:700}
+.tblwrap{overflow-x:auto}
+.oirow{display:flex;align-items:center;gap:12px;margin-top:10px}
+.oilab{width:56px;font-size:13px;font-weight:700;flex-shrink:0}
+.oitrack{flex:1;display:flex;align-items:center;height:26px;position:relative}
+.oizero{position:absolute;left:50%;top:-4px;bottom:-4px;width:1.5px;background:var(--line)}
+.oibar{height:16px;border-radius:4px;position:absolute}
+.oibar.p{background:var(--good);left:50%}
+.oibar.n{background:var(--bad);right:50%}
+.oival{width:88px;font-size:13px;font-weight:700;text-align:right;flex-shrink:0}
+.oiprev{width:110px;font-size:11.5px;color:var(--ink3);text-align:right;flex-shrink:0}
+.wf{display:flex;align-items:flex-end;gap:14px;height:200px;margin-top:18px}
+.wfc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.wfbar{width:78%;max-width:120px;border-radius:6px;position:relative}
+.wfc .wl{font-size:12px;font-weight:700;text-align:center;margin-top:10px;line-height:1.5}
+.wfc .wv{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:17px;margin-bottom:6px}
+.lever{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line2)}
+.lever:last-child{border-bottom:none}
+.lname{width:280px;flex-shrink:0}
+.lname b{display:block;font-size:14px}
+.lname span{font-size:12px;color:var(--ink3)}
+.ltrack{flex:1;height:18px;position:relative}
+.lbar{position:absolute;left:0;top:1px;height:16px;background:var(--good);border-radius:4px}
+.lval{width:110px;text-align:right;font-weight:700;flex-shrink:0;color:var(--good)}
+.asm{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line2)}
+.asm:last-child{border-bottom:none}
+.chip{flex-shrink:0;font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;margin-top:3px;letter-spacing:.06em}
+.chip.hi{background:var(--good-soft);color:var(--chip-hi)}
+.chip.mid{background:var(--hachi-soft);color:var(--chip-mid)}
+.chip.lo{background:var(--bad-soft);color:var(--chip-lo)}
+.asm .tx{font-size:13px;color:var(--ink2)}
+.asm .tx b{color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:760px){.two{grid-template-columns:1fr}.lname{width:170px}.oiprev{display:none}
+  .cols{height:170px}.col .vl{display:none}.col:nth-child(even) .ml{visibility:hidden}}
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--ink3);line-height:2}
+.callout{border-left:3px solid var(--hachi);background:var(--hachi-soft);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;margin-top:16px}
+.callout b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">RSX ／ 2026年8月29日 時点</div>
+  <h1>RSX FY2026 業績見通し</h1>
+  <p class="sub">9月1日の広告方針変更（金庫・蜂・ガラス・鳩へ集中投資）と有効コール課金への移行を織り込んだ、件数・粗利・営業利益の月次予測。実績PL（2021/4〜2026/6）と過去2年の件数推移から作成。</p>
+  <div class="meta"><span>前提：2026/8/27 広告運用MTG</span><span>単価改定：鍵・ガラス・金庫・ハチ・鳩のみ（税込換算）</span><span>金額はすべて税込</span></div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lb">9月 営業利益</div><div class="v num">±0<span style="font-size:16px">円</span></div><div class="d">前年9月 +850万円 ── 差はほぼ新Call単価</div></div>
+    <div class="kpi bad"><div class="lb">9〜12月 営業利益 累計</div><div class="v num">−2,130<span style="font-size:16px">万円</span></div><div class="d">前年同期 −2,310万円と同水準</div></div>
+    <div class="kpi acc"><div class="lb">今期 有効コール見通し</div><div class="v num">約5.8<span style="font-size:16px">万件</span></div><div class="d">前期 7.6万件 → <b>−23%</b>（夏のハチ半減が主因）</div></div>
+    <div class="kpi acc"><div class="lb">9月 自社訪問</div><div class="v num">2,415<span style="font-size:16px">件</span></div><div class="d">キャパ上限（30人×23日×3.5件/日）に到達</div></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="no">01</span><h2>お金の流れ ── 有効コール1件が生む利益</h2><span class="note">9月予測の加重平均</span></div>
+  <p class="lede">9月からは<strong>電話が鳴った時点で広告費が発生</strong>する（有効コール課金）。訪問できたか・成約したかに関わらずコストは固定なので、<strong>訪問率と自社化率がそのまま利益を決める</strong>構造になる。</p>
+  <div class="flow">
+    <div class="fbox"><div class="t">有効コール 1件</div><div class="n num">−¥18,900</div><div class="s">広告費（新単価の加重平均）が確定で発生</div></div>
+    <div class="farr"><b>→</b>75.1%</div>
+    <div class="fbox"><div class="t">訪問確定</div><div class="n num">0.75<span style="font-size:14px">件</span></div><div class="s">訪問にならなかった25%のコールも広告費は返らない</div></div>
+    <div class="farr"><b>→</b>振り分け</div>
+    <div class="split">
+      <div class="fbox own"><div class="t">自社施工（72%）</div><div class="n num">+¥61,700<span style="font-size:12px">／件</span></div><div class="s">売上¥72,200 − 部材費。<b>利益の本体はここ</b></div></div>
+      <div class="fbox out"><div class="t">協力店へ送客（28%）</div><div class="n num">+¥21,000<span style="font-size:12px">／件</span></div><div class="s">送客料のみ。自社との差 <b>約3倍</b> が自社化の価値</div></div>
+    </div>
+    <div class="farr"><b>=</b></div>
+    <div class="fbox res"><div class="t">コール1件あたり粗利</div><div class="n num">+¥19,000</div><div class="s">これが広告単価の値上げに耐えられる上限余地</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">02</span><h2>今期の件数見通し（2026/4〜2027/3）</h2><span class="note">全業種ベース・月次</span></div>
+  <p class="lede">通期の有効コールは<strong>約5.8万件（前期比−23%）</strong>、訪問確定は<strong>約4.1万件</strong>の見通し。前年との差はほぼ夏のハチ（8月コールが前年比−52%）。9月以降は広告集中投資とガラスの立ち上がりで、<strong>例年のような秋の急落にはならない</strong>。</p>
+  <div class="chart">
+    <h3>有効コール数の月次推移</h3>
+    <div class="cap">棒＝FY2026（4〜8月は実績、9月以降は予測）／ ○＝前年同月実績</div>
+    <div class="legend">
+      <span class="it"><span class="sw"></span>FY2026 実績</span>
+      <span class="it"><span class="sw fc"></span>FY2026 予測</span>
+      <span class="it"><span class="sw ghost"></span>FY2025 実績</span>
+    </div>
+    <div class="cols">
+      <div class="col"><div class="tip">2026年4月<br>コール 4,314 ／ 前年 5,682</div><div class="ghost" style="bottom:47.8%"></div><div class="vl num">4,314</div><div class="bar" style="height:36.3%"></div></div>
+      <div class="col"><div class="tip">2026年5月<br>コール 5,731 ／ 前年 6,892</div><div class="ghost" style="bottom:58.0%"></div><div class="vl num">5,731</div><div class="bar" style="height:48.2%"></div></div>
+      <div class="col"><div class="tip">2026年6月<br>コール 5,801 ／ 前年 8,503</div><div class="ghost" style="bottom:71.5%"></div><div class="vl num">5,801</div><div class="bar" style="height:48.8%"></div></div>
+      <div class="col"><div class="tip">2026年7月<br>コール 7,220 ／ 前年 11,891</div><div class="ghost" style="bottom:100%"></div><div class="vl num">7,220</div><div class="bar" style="height:60.7%"></div></div>
+      <div class="col"><div class="tip">2026年8月<br>コール 5,645 ／ 前年 11,704<br>ハチ構成比 42%（例年6割超）</div><div class="ghost" style="bottom:98.4%"></div><div class="vl num">5,645</div><div class="bar" style="height:47.5%"></div></div>
+      <div class="col"><div class="tip">2026年9月 予測<br>コール 約4,850 ／ 前年 7,377<br>金庫・ハチ・鳩の増額が効き始め</div><div class="ghost" style="bottom:62.0%"></div><div class="vl num">4,850</div><div class="bar fc" style="height:40.8%"></div></div>
+      <div class="col"><div class="tip">2026年10月 予測<br>コール 約4,150 ／ 前年 4,906</div><div class="ghost" style="bottom:41.3%"></div><div class="vl num">4,150</div><div class="bar fc" style="height:34.9%"></div></div>
+      <div class="col"><div class="tip">2026年11月 予測<br>コール 約4,000 ／ 前年 3,976<br>ここから前年超えへ</div><div class="ghost" style="bottom:33.4%"></div><div class="vl num">4,000</div><div class="bar fc" style="height:33.6%"></div></div>
+      <div class="col"><div class="tip">2026年12月 予測<br>コール 約4,200 ／ 前年 3,931<br>ガラス月1,700件超に到達</div><div class="ghost" style="bottom:33.1%"></div><div class="vl num">4,200</div><div class="bar fc" style="height:35.3%"></div></div>
+      <div class="col"><div class="tip">2027年1月 概算<br>コール 約4,100 ／ 前年 3,891</div><div class="ghost" style="bottom:32.7%"></div><div class="vl num">4,100</div><div class="bar fc" style="height:34.5%"></div></div>
+      <div class="col"><div class="tip">2027年2月 概算<br>コール 約3,900 ／ 前年 3,374</div><div class="ghost" style="bottom:28.4%"></div><div class="vl num">3,900</div><div class="bar fc" style="height:32.8%"></div></div>
+      <div class="col"><div class="tip">2027年3月 概算<br>コール 約4,200 ／ 前年 3,832</div><div class="ghost" style="bottom:32.2%"></div><div class="vl num">4,200</div><div class="bar fc" style="height:35.3%"></div></div>
+    </div>
+    <hr class="baseline">
+    <div class="cols" style="height:auto;margin-top:0">
+      <div class="col"><div class="ml">4月</div></div><div class="col"><div class="ml">5月</div></div>
+      <div class="col"><div class="ml">6月</div></div><div class="col"><div class="ml">7月</div></div>
+      <div class="col"><div class="ml">8月</div></div><div class="col"><div class="ml">9月</div></div>
+      <div class="col"><div class="ml">10月</div></div><div class="col"><div class="ml">11月</div></div>
+      <div class="col"><div class="ml">12月</div></div><div class="col"><div class="ml">1月</div></div>
+      <div class="col"><div class="ml">2月</div></div><div class="col"><div class="ml">3月</div></div>
+    </div>
+    <p class="annot" style="margin-top:14px">11月以降は前年を上回る見通し ── 例年11〜12月は約3,900〜4,000件まで落ちるが、ガラスの機械学習回復（3ヶ月ラグ）が年末に間に合い、冬季に強いネズミ・水道の季節増も乗る。1〜3月は9〜12月モデルの簡易延長（概算）。</p>
+  </div>
+
+  <div class="callout"><b>なぜ例年のような「秋の急落」にならないのか。</b>　例年の8月→9月 −36%は、コールの6割超を占めていたハチが9月に57%消えることによるもの。ハチ以外の業種は9月もほぼ横ばい（97%）で、この2成分だけで過去2年の実績が誤差1pt以内で再現できる。今年はそのハチが42%しかいない。
+    <div class="mixrow"><div class="mixlab">例年の8月（FY2025）</div><div class="mixbar"><span class="mseg h" style="width:63%">ハチ 63%</span><span class="mseg n" style="width:37%">その他 37%</span></div></div>
+    <div class="mixrow"><div class="mixlab">今年の8月（FY2026）</div><div class="mixbar"><span class="mseg h" style="width:42%">ハチ 42%</span><span class="mseg n" style="width:58%">その他 58%</span></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">03</span><h2>月次PL見通し（9〜12月）</h2><span class="note">10業種モデル＋販管費実績ベース</span></div>
+  <div class="two">
+    <div class="card">
+      <h3 style="font-size:15px">損益の内訳</h3>
+      <div class="tblwrap"><table>
+        <tr><th>科目</th><th>9月</th><th>10月</th><th>11月</th><th>12月</th></tr>
+        <tr><td>総売上</td><td class="num">1.94億</td><td class="num">1.82億</td><td class="num">1.71億</td><td class="num">1.64億</td></tr>
+        <tr><td>広告費（有効コール課金）</td><td class="num">−8,400万</td><td class="num">−7,100万</td><td class="num">−6,720万</td><td class="num">−6,920万</td></tr>
+        <tr><td>部材・外注費</td><td class="num">−2,530万</td><td class="num">−2,400万</td><td class="num">−2,440万</td><td class="num">−2,540万</td></tr>
+        <tr><td><b>粗利</b></td><td class="num"><b>8,480万</b></td><td class="num"><b>8,100万</b></td><td class="num"><b>7,500万</b></td><td class="num"><b>6,920万</b></td></tr>
+        <tr><td>販管費</td><td class="num">−8,470万</td><td class="num">−8,000万</td><td class="num">−8,530万</td><td class="num">−8,130万</td></tr>
+        <tr class="total"><td>営業利益</td><td class="num">±0</td><td class="num pos">+100万</td><td class="num neg">−1,030万</td><td class="num neg">−1,210万</td></tr>
+      </table></div>
+      <p class="annot" style="margin-top:12px">販管費の山谷は実績通り：<b>9月は法定福利費が毎年スパイク</b>（労働保険等 +260万）、<b>11月は賞与550万</b>。給料賃金は繁忙期連動で夏高・冬低。</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:15px">営業利益 ── 今年（濃）と前年同月（薄字）</h3>
+      <div style="margin-top:14px">
+        <div class="oirow"><div class="oilab">9月</div><div class="oitrack"><div class="oizero"></div><div class="oibar p" style="width:0.2%"></div></div><div class="oival num">±0</div><div class="oiprev num">前年 +850万</div></div>
+        <div class="oirow"><div class="oilab">10月</div><div class="oitrack"><div class="oizero"></div><div class="oibar p" style="width:2%"></div></div><div class="oival num pos">+100万</div><div class="oiprev num">前年 +470万</div></div>
+        <div class="oirow"><div class="oilab">11月</div><div class="oitrack"><div class="oizero"></div><div class="oibar n" style="width:20.9%"></div></div><div class="oival num neg">−1,030万</div><div class="oiprev num">前年 −2,470万</div></div>
+        <div class="oirow"><div class="oilab">12月</div><div class="oitrack"><div class="oizero"></div><div class="oibar n" style="width:24.5%"></div></div><div class="oival num neg">−1,210万</div><div class="oiprev num">前年 −1,160万</div></div>
+      </div>
+      <div style="border-top:1.5px solid var(--line);margin-top:14px;padding-top:12px">
+        <div class="oirow"><div class="oilab" style="width:110px">通期見通し</div><div class="oitrack"><div class="oizero"></div><div class="oibar n" style="width:36%"></div></div><div class="oival num neg">−3,600万前後</div></div>
+        <div class="oirow"><div class="oilab" style="width:110px;color:var(--ink3)">前期 FY2025</div><div class="oitrack"><div class="oizero"></div><div class="oibar n" style="width:26.4%;opacity:.45"></div></div><div class="oival num" style="color:var(--ink3)">−2,640万</div></div>
+        <div class="oirow"><div class="oilab" style="width:110px;color:var(--ink3)">前々期 FY2024</div><div class="oitrack"><div class="oizero"></div><div class="oibar n" style="width:26.6%;opacity:.45"></div></div><div class="oival num" style="color:var(--ink3)">−2,660万</div></div>
+      </div>
+      <p class="annot" style="margin-top:12px">この事業は「夏に稼いで冬に吐き出す」構造（前年は7〜8月に+7,150万）。今年は夏の貯金が薄く（7〜8月推計 +2,900万）、通期は前期比で悪化するコース。1〜3月は概算。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">04</span><h2>9月の利益はどこに消えたか</h2><span class="note">新Call単価の影響分解</span></div>
+  <p class="lede">9月がトントンなのは件数のせいではない。<strong>先方提示の新Call単価で広告費が月+2,200万円</strong>増えるため。旧課金のままなら9月は前年を上回る黒字だった。</p>
+  <div class="card">
+    <div class="wf">
+      <div class="wfc"><div class="wv num pos">+2,230万</div><div class="wfbar" style="height:78%;background:var(--good)"></div><div class="wl">旧課金のままの<br>9月営業利益（試算）</div></div>
+      <div class="wfc"><div class="wv num neg">−2,220万</div><div class="wfbar" style="height:78%;background:repeating-linear-gradient(135deg,var(--bad) 0 5px,var(--bad-soft) 5px 10px);border:1.5px solid var(--bad)"></div><div class="wl">新Call単価による<br>広告費の増加</div></div>
+      <div class="wfc"><div class="wv num">±0</div><div class="wfbar" style="height:2%;background:var(--ink3)"></div><div class="wl">9月営業利益<br>（今回の見通し）</div></div>
+    </div>
+    <p class="annot" style="margin-top:16px">単価上昇の中身：金庫は訪問1件あたりコスト +92%（¥16,170→¥31,079）、害獣 +81%、ガラス +52%。金額インパクトはコール数の多いハチ（+2,300万/月規模の広告費）と金庫が最大。<b>交渉の勝負どころはこの2業種。</b></p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">05</span><h2>利益を動かすレバー</h2><span class="note">月次インパクト順</span></div>
+  <p class="lede">有効コール課金では広告費が固定化されるため、<strong>現場側の改善（訪問率・判定・自社化）がそのまま利益に落ちる</strong>。上の2つは交渉・管理だけで動く。</p>
+  <div class="card">
+    <div class="lever"><div class="lname"><b>Call単価の交渉で1割戻す</b><span>特にハチ・金庫。広告費8,400万の10%</span></div><div class="ltrack"><div class="lbar" style="width:100%"></div></div><div class="lval num">+840万/月</div></div>
+    <div class="lever"><div class="lname"><b>自社訪問単価 +1%</b><span>単価アップ・追加提案。金庫比率上昇も同方向</span></div><div class="ltrack"><div class="lbar" style="width:18%"></div></div><div class="lval num">+150万/月</div></div>
+    <div class="lever"><div class="lname"><b>訪問率 +1pt</b><span>CC品質・即時対応。年換算 +1,600万</span></div><div class="ltrack"><div class="lbar" style="width:15.5%"></div></div><div class="lval num">+130万/月</div></div>
+    <div class="lever"><div class="lname"><b>無効コールの判定厳格化 1%</b><span>小嶋担当。判定の甘さ＝そのまま広告費</span></div><div class="ltrack"><div class="lbar" style="width:10%"></div></div><div class="lval num">+84万/月</div></div>
+    <div class="lever"><div class="lname"><b>外注案件の自社化（10月以降）</b><span>1件+2.6万〜4万。冬は自社キャパに余力200件超</span></div><div class="ltrack"><div class="lbar" style="width:71%"></div></div><div class="lval num">最大+600万/月</div></div>
+  </div>
+  <div class="callout"><b>9月だけは自社キャパが満杯</b>（2,415件・3.5件/日/人）なので自社化レバーは効かない。10月以降、需要が落ちて自社率が自然に73%→89%へ上がっていく局面で、どの業種を自社に取り込むかの配車設計が効いてくる。</div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">06</span><h2>前提と確度</h2><span class="note">数字を疑うときはここから</span></div>
+  <div class="card">
+    <div class="asm"><span class="chip hi">高</span><div class="tx"><b>件数の季節性</b> ── ハチ43%／非ハチ97%の2成分分解は、過去2年（2024・2025）の月次実績を誤差1pt以内で再現。</div></div>
+    <div class="asm"><span class="chip hi">高</span><div class="tx"><b>販管費の水準と季節性</b> ── 月次PL実績（〜2026/6）ベース。給料+3.6%・車両+14%・減価償却+2.8M/月のFY2026水準を反映。</div></div>
+    <div class="asm"><span class="chip hi">高</span><div class="tx"><b>単価・原価</b> ── 訪問単価は6〜8月ダッシュボード実績（自社成約金額÷自社訪問件数）。協力店条件は提示済みの実数。</div></div>
+    <div class="asm"><span class="chip mid">中</span><div class="tx"><b>ハチの9月残存率 0.43</b> ── 天候次第で±0.1は動く。その場合、9月コール±240件・粗利±300万。</div></div>
+    <div class="asm"><span class="chip mid">中</span><div class="tx"><b>広告効果とラグ</b> ── 金庫・ハチ+50%（2週間）、ガラス+150%（3ヶ月）はMTGの想定値。機械学習の反応が遅れれば後ズレ。</div></div>
+    <div class="asm"><span class="chip mid">中</span><div class="tx"><b>鳩の課金方式</b> ── 新単価¥27,500適用と仮定。現行のままなら要修正（Excelパラメータで切替可）。<b>先方に要確認。</b></div></div>
+    <div class="asm"><span class="chip lo">仮</span><div class="tx"><b>採用費 月150万</b> ── 採用強化方針の仮置き。FY2025のH1は月600〜1,200万投下しており、本格採用なら営業利益はさらに沈む。</div></div>
+    <div class="asm"><span class="chip lo">仮</span><div class="tx"><b>1〜3月・7〜8月営業利益・モデル外事業（BtoB等）</b> ── 簡易推計。通期−3,600万は−3,000〜−4,500万の幅で見るべき数字。</div></div>
+  </div>
+</section>
+
+<footer>
+  出典：業種別 有効コール・訪問実績（2024/8〜2026/8）／ 自社・外注別 週次ダッシュボード（2026/6〜8）／ 月次PL（2021/4〜2026/6）／ 先方提示の新Call単価（税抜・2026/8）／ 広告運用・案件獲得方針MTG 議事録（2026/8/27）<br>
+  詳細な計算は Excel「業績予測モデル_v6.xlsx」（パラメータ・月次エンジン・販管費予測・感度分析）。本ページの数字はすべて同モデルと一致。
+</footer>
+</div>
+
+</body>
+</html>
