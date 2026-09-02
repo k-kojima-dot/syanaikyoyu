@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>PII漏洩の是正記録</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #F4F6F8;
+    --bg-elevated: #FFFFFF;
+    --bg-inset: #EBEEF1;
+    --text: #16212B;
+    --text-muted: #566270;
+    --text-faint: #8894A0;
+    --border: #DCE2E7;
+    --border-strong: #C3CBD2;
+
+    --accent: #0B7A78;
+    --accent-strong: #075A59;
+    --accent-soft: #E1F1EF;
+
+    --danger: #C0293D;
+    --danger-strong: #931F30;
+    --danger-soft: #FBE9EB;
+
+    --success: #1F8A57;
+    --success-strong: #166B43;
+    --success-soft: #E5F5EC;
+
+    --code-bg: #10181F;
+    --code-text: #DCE6EC;
+    --code-muted: #6F818E;
+    --code-add-bg: rgba(63, 193, 126, 0.16);
+    --code-add-text: #7FE3AC;
+    --code-del-bg: rgba(229, 87, 107, 0.16);
+    --code-del-text: #F3919F;
+
+    --shadow: 0 1px 2px rgba(20, 30, 40, 0.06), 0 8px 24px -12px rgba(20, 30, 40, 0.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0D1318;
+      --bg-elevated: #151D24;
+      --bg-inset: #101820;
+      --text: #E8EDF1;
+      --text-muted: #97A5B0;
+      --text-faint: #647380;
+      --border: #263039;
+      --border-strong: #354049;
+
+      --accent: #2FBCB1;
+      --accent-strong: #63D6CC;
+      --accent-soft: #12302E;
+
+      --danger: #E5576B;
+      --danger-strong: #F27C8C;
+      --danger-soft: #331A20;
+
+      --success: #3FC17E;
+      --success-strong: #6BD79C;
+      --success-soft: #12301F;
+
+      --code-bg: #0A0F14;
+      --code-text: #DCE6EC;
+      --code-muted: #647380;
+
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0D1318;
+    --bg-elevated: #151D24;
+    --bg-inset: #101820;
+    --text: #E8EDF1;
+    --text-muted: #97A5B0;
+    --text-faint: #647380;
+    --border: #263039;
+    --border-strong: #354049;
+
+    --accent: #2FBCB1;
+    --accent-strong: #63D6CC;
+    --accent-soft: #12302E;
+
+    --danger: #E5576B;
+    --danger-strong: #F27C8C;
+    --danger-soft: #331A20;
+
+    --success: #3FC17E;
+    --success-strong: #6BD79C;
+    --success-soft: #12301F;
+
+    --code-bg: #0A0F14;
+    --code-text: #DCE6EC;
+    --code-muted: #647380;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans JP", "IBM Plex Sans", "Hiragino Sans", "Yu Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  code, .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+  header.hero {
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    padding: 5px 12px 5px 10px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  h1 {
+    font-size: 34px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+    font-weight: 700;
+  }
+  .hero p.lead {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 64ch;
+    margin: 0 0 22px;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .meta-row b { color: var(--text-muted); font-weight: 500; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 32px 0 48px;
+  }
+  .stat {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .stat .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .stat.ok .num { color: var(--success-strong); }
+  .stat.warn .num { color: var(--danger-strong); }
+  .stat .label {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .finding {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 30px 30px 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .finding-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .finding-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+  }
+  .sev {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .sev.high { background: var(--danger-soft); color: var(--danger-strong); }
+  .sev.mid { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent-strong); }
+
+  .finding h2 {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 4px 0 10px;
+    text-wrap: balance;
+  }
+  .finding .route {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    background: var(--bg-inset);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .finding p.desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 68ch;
+    margin: 0 0 26px;
+  }
+  .finding p.desc .k { color: var(--text); font-weight: 500; }
+
+  .flow-block { margin-bottom: 26px; }
+  .lane {
+    position: relative;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 30px 18px 18px;
+    background: var(--bg-inset);
+    margin-bottom: 14px;
+  }
+  .lane.before { border-left-color: var(--danger); }
+  .lane.after { border-left-color: var(--success); }
+  .lane-label {
+    position: absolute;
+    top: -11px;
+    left: 14px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+  }
+  .lane.before .lane-label { color: var(--danger-strong); }
+  .lane.after .lane-label { color: var(--success-strong); }
+
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .node {
+    flex: 0 0 auto;
+    min-width: 132px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    justify-content: center;
+  }
+  .node .role {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .node .title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .node .sub { font-size: 11.5px; color: var(--text-muted); font-family: "IBM Plex Mono", monospace; }
+  .node.outcome.deny { background: var(--success-soft); border-color: color-mix(in srgb, var(--success) 45%, transparent); }
+  .node.outcome.allow-bad { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 45%, transparent); }
+  .node.outcome.allow-ok { background: var(--success-soft); border-color: color-mix(in srgb, var(--success) 45%, transparent); }
+  .node.outcome .title.deny-t { color: var(--success-strong); }
+  .node.outcome .title.danger-t { color: var(--danger-strong); }
+
+  .connector {
+    flex: 1 1 48px;
+    min-width: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+  }
+  .connector .line {
+    width: 100%;
+    height: 1px;
+    background: var(--border-strong);
+    position: relative;
+  }
+  .connector .line::after {
+    content: "";
+    position: absolute;
+    right: -1px; top: 50%;
+    transform: translateY(-50%);
+    border: 4px solid transparent;
+    border-left-color: var(--border-strong);
+  }
+  .connector .clabel {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .lane.before .connector.crit .line { background: var(--danger); }
+  .lane.before .connector.crit .line::after { border-left-color: var(--danger); }
+  .lane.before .connector.crit .clabel { color: var(--danger-strong); }
+  .lane.after .connector.crit .line { background: var(--success); }
+  .lane.after .connector.crit .line::after { border-left-color: var(--success); }
+  .lane.after .connector.crit .clabel { color: var(--success-strong); }
+
+  .diff {
+    background: var(--code-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .diff-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--code-muted);
+  }
+  .diff-head .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .diff pre {
+    margin: 0;
+    padding: 12px 0;
+    overflow-x: auto;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.8px;
+    line-height: 1.85;
+  }
+  .diff .l {
+    display: block;
+    padding: 0 16px;
+    white-space: pre;
+    color: var(--code-text);
+  }
+  .diff .l .ln {
+    display: inline-block;
+    width: 26px;
+    color: var(--code-muted);
+    user-select: none;
+  }
+  .diff .del { background: var(--code-del-bg); color: var(--code-del-text); }
+  .diff .add { background: var(--code-add-bg); color: var(--code-add-text); }
+  .diff .ctx { color: var(--code-muted); }
+
+  .callout {
+    border: 1px solid color-mix(in srgb, var(--danger) 40%, var(--border));
+    background: var(--danger-soft);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 32px 0;
+  }
+  .callout-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .callout-head .pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--bg-elevated);
+    background: var(--danger-strong);
+    padding: 3px 9px;
+    border-radius: 5px;
+  }
+  .callout-head h3 { margin: 0; font-size: 16.5px; }
+  .callout p { margin: 0 0 8px; color: var(--text-muted); font-size: 14.5px; }
+  .callout ul { margin: 8px 0 0; padding-left: 20px; color: var(--text-muted); font-size: 14px; }
+  .callout code { background: var(--bg-inset); padding: 1px 5px; border-radius: 4px; font-size: 12.5px; color: var(--text); }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-faint);
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  @media (max-width: 620px) {
+    .stats { grid-template-columns: 1fr; }
+    h1 { font-size: 27px; }
+    .finding { padding: 22px 18px 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <span class="eyebrow">月次セキュリティレビュー &nbsp;/&nbsp; 是正記録</span>
+    <h1>作業員ロールから顧客PIIが漏れる2つの穴を塞いだ</h1>
+    <p class="lead">
+      2026-09の定例レビューで、作業員(WORKER)権限のセッションから他社の顧客個人情報に到達できる
+      認可漏れを2件検出。当日中にコード修正を適用し、動作を検証のうえ main へ反映済み。
+    </p>
+    <div class="meta-row">
+      <span><b>対応日</b> 2026-09-01</span>
+      <span><b>対象</b> k-kojima-dot/crm-system @ main</span>
+      <span><b>検出</b> SECURITY_CHECKLIST.md 項目D（新規APIの認可レビュー）</span>
+      <span><b>commit</b> 0b8efae</span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat ok">
+      <div class="num">2 / 2</div>
+      <div class="label">検出した認可漏れ ─ 修正・push済み</div>
+    </div>
+    <div class="stat ok">
+      <div class="num">3 files</div>
+      <div class="label">変更ファイル（route.ts ×2 ＋ 月次レポート）</div>
+    </div>
+    <div class="stat warn">
+      <div class="num">1件</div>
+      <div class="label">未着手の重大脆弱性（next-auth）</div>
+    </div>
+  </div>
+
+  <section class="finding">
+    <div class="finding-head">
+      <span class="finding-tag">所見 1 / 2</span>
+      <span class="sev high">重大度: 高</span>
+    </div>
+    <h2>リピーター登録APIで、companyId未設定の案件を経由すると他社の顧客情報を複製できた</h2>
+    <span class="route">POST /api/worker/cases/repeat</span>
+
+    <p class="desc">
+      「同じ会社の案件のみ元案件として許可する」チェックが
+      <code class="k">worker.companyId &amp;&amp; source.companyId &amp;&amp;</code> という2つの真偽値ガードの内側にあったため、
+      元案件の <code class="k">companyId</code> が <code class="k">null</code>（会社未割当のケース）だと比較自体が走らず、
+      任意の <code class="k">sourceCaseId</code> を指定するだけで氏名・電話番号・メール・住所がそのままコピーされ、
+      指定した作業員自身の担当案件として作成されていた。
+    </p>
+
+    <div class="flow-block">
+      <div class="lane before">
+        <span class="lane-label">修正前 — 複製できてしまう</span>
+        <div class="flow">
+          <div class="node">
+            <span class="role">Session</span>
+            <span class="title">作業員（会社B）</span>
+            <span class="sub">role: WORKER</span>
+          </div>
+          <div class="connector"><div class="line"></div></div>
+          <div class="node">
+            <span class="role">Request</span>
+            <span class="title">sourceCaseId 指定</span>
+            <span class="sub">会社A の顧客の案件ID</span>
+          </div>
+          <div class="connector crit">
+            <span class="clabel">companyId: null → 未チェック</span>
+            <div class="line"></div>
+          </div>
+          <div class="node outcome allow-bad">
+            <span class="role">Response</span>
+            <span class="title danger-t">201 Created</span>
+            <span class="sub">氏名/電話/メール/住所を複製</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lane after">
+        <span class="lane-label">修正後 — 常に会社を比較</span>
+        <div class="flow">
+          <div class="node">
+            <span class="role">Session</span>
+            <span class="title">作業員（会社B）</span>
+            <span class="sub">role: WORKER</span>
+          </div>
+          <div class="connector"><div class="line"></div></div>
+          <div class="node">
+            <span class="role">Request</span>
+            <span class="title">sourceCaseId 指定</span>
+            <span class="sub">会社A の顧客の案件ID</span>
+          </div>
+          <div class="connector crit">
+            <span class="clabel">source.companyId !== worker.companyId</span>
+            <div class="line"></div>
+          </div>
+          <div class="node outcome deny">
+            <span class="role">Response</span>
+            <span class="title deny-t">403 Forbidden</span>
+            <span class="sub">「元案件に指定できません」</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diff">
+      <div class="diff-head"><span class="dot"></span> src/app/api/worker/cases/repeat/route.ts</div>
+      <pre><span class="l ctx"><span class="ln">96</span>  if (!source) return NextResponse.json({ error: "元案件が見つかりません" }, { status: 404 });</span><span class="l ctx"><span class="ln">97</span></span><span class="l del"><span class="ln">98</span>  // 同じ会社の案件のみ元案件として許可する</span><span class="l del"><span class="ln">99</span>  if (worker.companyId &amp;&amp; source.companyId &amp;&amp; source.companyId !== worker.companyId)</span><span class="l add"><span class="ln">98</span>  // 同じ会社の案件のみ元案件として許可する。companyId=null の案件も</span><span class="l add"><span class="ln">99</span>  // 他社作業員が複製できてしまうため、常にワーカーの会社と比較する。</span><span class="l add"><span class="ln">100</span>  if (source.companyId !== worker.companyId)</span><span class="l ctx"><span class="ln">101</span>    return NextResponse.json({ error: "この案件は元案件に指定できません" }, { status: 403 });</span></pre>
+    </div>
+  </section>
+
+  <section class="finding">
+    <div class="finding-head">
+      <span class="finding-tag">所見 2 / 2</span>
+      <span class="sev mid">重大度: 中</span>
+    </div>
+    <h2>案件の電話番号重複チェックAPIにロール確認がなく、作業員から顧客名を検索できた</h2>
+    <span class="route">GET /api/cases/by-phone</span>
+
+    <p class="desc">
+      受付が新規案件登録時に「同じ電話番号の既存案件」を警告するための内部APIで、
+      <code class="k">auth()</code> によるログイン確認はあったが <code class="k">isOfficeSideRole()</code> によるロール確認が無かった。
+      本来は受付/管理側（ADMIN・OPERATOR）専用の画面からしか呼ばれないが、
+      APIとしては WORKER 権限のセッションでもそのまま叩け、直近30日以内の一致案件から氏名・回線名・受付結果を最大5件取得できていた。
+    </p>
+
+    <div class="flow-block">
+      <div class="lane before">
+        <span class="lane-label">修正前 — ロール未確認</span>
+        <div class="flow">
+          <div class="node">
+            <span class="role">Session</span>
+            <span class="title">作業員</span>
+            <span class="sub">role: WORKER</span>
+          </div>
+          <div class="connector"><div class="line"></div></div>
+          <div class="node">
+            <span class="role">Request</span>
+            <span class="title">GET .../by-phone</span>
+            <span class="sub">?phone=090xxxxxxxx</span>
+          </div>
+          <div class="connector crit">
+            <span class="clabel">auth() のみ確認</span>
+            <div class="line"></div>
+          </div>
+          <div class="node outcome allow-bad">
+            <span class="role">Response</span>
+            <span class="title danger-t">200 OK</span>
+            <span class="sub">顧客名を含む一致案件を返す</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lane after">
+        <span class="lane-label">修正後 — オフィス側ロールに限定</span>
+        <div class="flow">
+          <div class="node">
+            <span class="role">Session</span>
+            <span class="title">作業員</span>
+            <span class="sub">role: WORKER</span>
+          </div>
+          <div class="connector"><div class="line"></div></div>
+          <div class="node">
+            <span class="role">Request</span>
+            <span class="title">GET .../by-phone</span>
+            <span class="sub">?phone=090xxxxxxxx</span>
+          </div>
+          <div class="connector crit">
+            <span class="clabel">isOfficeSideRole(role)</span>
+            <div class="line"></div>
+          </div>
+          <div class="node outcome deny">
+            <span class="role">Response</span>
+            <span class="title deny-t">403 Forbidden</span>
+            <span class="sub">ADMIN/OPERATORのみ 200 OK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diff">
+      <div class="diff-head"><span class="dot"></span> src/app/api/cases/by-phone/route.ts</div>
+      <pre><span class="l ctx"><span class="ln">1</span>  import { NextRequest, NextResponse } from "next/server";</span><span class="l ctx"><span class="ln">2</span>  import { auth } from "@/lib/auth";</span><span class="l ctx"><span class="ln">3</span>  import { prisma } from "@/lib/prisma";</span><span class="l add"><span class="ln">4</span>  import { isOfficeSideRole } from "@/lib/roles";</span><span class="l ctx"><span class="ln">…</span></span><span class="l ctx"><span class="ln">19</span>  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });</span><span class="l add"><span class="ln">20</span>  if (!isOfficeSideRole((session.user as any).role)) {</span><span class="l add"><span class="ln">21</span>    return NextResponse.json({ error: "Forbidden" }, { status: 403 });</span><span class="l add"><span class="ln">22</span>  }</span></pre>
+    </div>
+  </section>
+
+  <div class="callout">
+    <div class="callout-head">
+      <span class="pill">未着手</span>
+      <h3>next-auth / @auth/core の critical 脆弱性は今回のコード修正の対象外</h3>
+    </div>
+    <p>
+      <code>npm audit</code>: critical 2件・high 12件・low 1件。うち <code>next-auth@5.0.0-beta.20</code> と
+      その依存 <code>@auth/core</code> は <b>GHSA-8fpg-xm3f-6cx3</b>
+      （設定エラー時に認証チェックがフェイルオープンする可能性）を含む。
+      本アプリの全routeは <code>session = await auth()</code> の真偽で認可判定しているため影響範囲が広い。
+    </p>
+    <ul>
+      <li>検証用ブランチで next-auth の更新を確認 → ステージングで auth() の挙動テスト</li>
+      <li>next / postcss / nodemailer / eslint-config-next の high 脆弱性はメジャー更新が必要（破壊的変更に注意）</li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="https://github.com/k-kojima-dot/crm-system/commit/0b8efae4f7cf82b21cdaa67e050f1ec230c6bc8e" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--text-faint);">k-kojima-dot/crm-system @ 0b8efae</a>
+    <span>2026-09-01 22:32 UTC ・ main へ push 済み</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
