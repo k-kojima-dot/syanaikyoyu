@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>13時05分の着信が出なかった理由</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F2F4F6; --surface:#FFFFFF; --ink:#141B22; --muted:#5D6B77;
+    --rule:#DCE2E8; --rule-soft:#EAEEF2;
+    --accent:#1D5E8C; --accent-soft:#E4EFF7;
+    --bad:#B3261E; --bad-soft:#FBE9E7;
+    --mid:#8A6212; --mid-soft:#FBF1DC;
+    --good:#2C6E49; --good-soft:#E4F1E9;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#101519; --surface:#182027; --ink:#E6EDF3; --muted:#94A5B3;
+      --rule:#28333C; --rule-soft:#212A32;
+      --accent:#68B4E4; --accent-soft:#122430;
+      --bad:#F08A80; --bad-soft:#2C1614;
+      --mid:#D9B45E; --mid-soft:#2A2413;
+      --good:#71C899; --good-soft:#15271D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#101519; --surface:#182027; --ink:#E6EDF3; --muted:#94A5B3;
+    --rule:#28333C; --rule-soft:#212A32;
+    --accent:#68B4E4; --accent-soft:#122430;
+    --bad:#F08A80; --bad-soft:#2C1614;
+    --mid:#D9B45E; --mid-soft:#2A2413;
+    --good:#71C899; --good-soft:#15271D;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);
+    font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+    font-size:15px;line-height:1.85;padding:32px 20px 60px}
+  .wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+  h1,h2{font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;text-wrap:balance;margin:0}
+  h1{font-size:26px;font-weight:700;line-height:1.42}
+  h2{font-size:16px;font-weight:700}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted)}
+  header{display:flex;flex-direction:column;gap:6px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+  header p{margin:8px 0 0;color:var(--muted);font-size:14px}
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+    padding:20px 22px;display:flex;flex-direction:column;gap:13px}
+  .card > p{margin:0}
+  .note{color:var(--muted);font-size:13.5px}
+  code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;
+    background:var(--rule-soft);padding:2px 6px;border-radius:4px}
+  .tl{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none}
+  .tl li{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--rule-soft)}
+  .tl li:last-child{border-bottom:none}
+  .tl time{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);
+    flex:none;width:62px;font-variant-numeric:tabular-nums;padding-top:2px}
+  .tl .what{font-size:14px}
+  .tl .what strong{font-weight:700}
+  .tbl-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule-soft);white-space:nowrap}
+  th{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  tr:last-child td{border-bottom:none}
+  td.num{text-align:right}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid transparent}
+  .tag.good{background:var(--good-soft);color:var(--good);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+  .tag.mid{background:var(--mid-soft);color:var(--mid);border-color:color-mix(in srgb,var(--mid) 32%,transparent)}
+  .tag.bad{background:var(--bad-soft);color:var(--bad);border-color:color-mix(in srgb,var(--bad) 32%,transparent)}
+  ul{margin:0;padding-left:1.15em}
+  li{margin:4px 0}
+  .verdict{background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:13px 16px;border-radius:0 8px 8px 0;font-size:14.5px}
+  .verdict strong{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">CRM 調査 / 2026-09-02</div>
+    <h1>13時05分の着信が出なかった理由</h1>
+    <p>090-5380-2395 →「まちの金庫救急隊」050-1782-5139。CRMの記録を追いました。</p>
+  </header>
+
+  <section class="card">
+    <h2>起きたこと</h2>
+    <ul class="tl">
+      <li><time>13:05:30</time><span class="what">Zoomに着信。<strong>放棄済み</strong>（お客様が切った）</span></li>
+      <li><time>13:05:33</time><span class="what">CRMが着信を<strong>正しく受信</strong>。回線も「まちの金庫救急隊」と照合済み</span></li>
+      <li><time>13:05:33</time><span class="what">鳴らす先は<strong>内線821（山本 麻美）</strong>と<strong>内線814（鈴木天乃）</strong>の2席のみ</span></li>
+      <li><time>13:12:52</time><span class="what">内線821のブラウザがようやく着信を取得。<strong>7分19秒後</strong></span></li>
+      <li><time>—</time><span class="what">内線814は<strong>最後まで取得なし</strong></span></li>
+      <li><time>13:19:41</time><span class="what">内線815から折り返し発信（emmet.uketsuke+1）</span></li>
+    </ul>
+    <div class="verdict">
+      <strong>CRM側は着信を受け取れています。</strong>ポップが出なかったのは、鳴った2席のブラウザが着信を取りに来られていなかったためです。821が気づいた13:12にはお客様はとっくに切っています。
+    </div>
+    <p class="note">なお、この着信は内線806・813には鳴っていません。Zoom側の呼び出し先が821と814の2席だったためで、CRMの設定ではありません。</p>
+  </section>
+
+  <section class="card">
+    <h2>当日の席ごとの成績</h2>
+    <p>9月2日の着信について、CRMが記録してから各席のブラウザが取りに来るまでの時間です。</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>席</th><th>担当</th><th class="num">着信</th><th class="num">取得</th><th class="num">中央値</th><th class="num">最大</th><th>状態</th></tr></thead>
+        <tbody>
+          <tr><td>内線813</td><td>福島 采奈</td><td class="num">11</td><td class="num">11</td><td class="num">1秒</td><td class="num">1秒</td><td><span class="tag good">正常</span></td></tr>
+          <tr><td>内線821</td><td>山本 麻美</td><td class="num">12</td><td class="num">11</td><td class="num">1秒</td><td class="num">7分19秒</td><td><span class="tag mid">時々止まる</span></td></tr>
+          <tr><td>内線806</td><td>須沢友里加</td><td class="num">16</td><td class="num">6</td><td class="num">13秒</td><td class="num">6分8秒</td><td><span class="tag bad">不調</span></td></tr>
+          <tr><td>内線814</td><td>鈴木天乃</td><td class="num">2</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td><span class="tag bad">1件も取れず</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">福島さんの席は11件すべて1秒で取れています。つまり<strong>仕組み自体は正常に動いています</strong>。問題は席ごと＝端末ごとに出ています。</p>
+  </section>
+
+  <section class="card">
+    <h2>OP側で確認してほしいこと</h2>
+    <p>特に <strong>内線806（須沢さん）</strong> と <strong>内線814（鈴木さん）</strong> です。</p>
+    <ul>
+      <li><strong>CRMのタブが裏に回っていないか。</strong>Chromeは裏のタブを止めることがあります（メモリセーバー）。CRMは手前のタブに置いたままにしてください。</li>
+      <li><strong>ポップアップがブロックされていないか。</strong>CRMは画面を開けたときだけ着信を消し込みます。ブロックされていると、取得できないまま同じ着信が残り続けます。806の「16件中6件」はこの形に見えます。</li>
+      <li><strong>席が正しく選ばれているか。</strong>席を選んでいない端末は着信を拾いません。</li>
+      <li>CRMは待受が90秒以上途切れると画面に警告を出します。<strong>その警告が出ていなかったか</strong>を聞いてみてください。</li>
+    </ul>
+    <p class="note">席ごとの取得遅れをこちらで自動監視して、閾値を超えたらSlackへ知らせることもできます。必要であれば入れます。</p>
+  </section>
+</div>
+
+</body>
+</html>
