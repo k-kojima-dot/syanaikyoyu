@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>営業コンサル 議事録｜株式会社Raise 御中（2026.09.11）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F3F4F1;
+    --surface:#FFFFFF;
+    --surface-2:#EAECE7;
+    --ink:#1A211E;
+    --ink-2:#4C5551;
+    --ink-3:#818A85;
+    --rule:#DDE0DA;
+    --rule-2:#C7CCC4;
+    --accent:#2F6B5F;
+    --accent-soft:#E4EFEB;
+    --brass:#9B742A;
+    --brass-soft:#F6EFDF;
+    --alert:#A3452F;
+    --alert-soft:#F8E9E4;
+    --shadow:0 1px 2px rgba(26,33,30,.05), 0 10px 30px -18px rgba(26,33,30,.35);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#101513; --surface:#181E1B; --surface-2:#202724;
+      --ink:#E8EDEA; --ink-2:#A9B3AE; --ink-3:#7C8681;
+      --rule:#29312D; --rule-2:#3A433E;
+      --accent:#6FBFAC; --accent-soft:#142B26;
+      --brass:#D6AC5E; --brass-soft:#2C2413;
+      --alert:#E08D75; --alert-soft:#301B15;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#101513; --surface:#181E1B; --surface-2:#202724;
+    --ink:#E8EDEA; --ink-2:#A9B3AE; --ink-3:#7C8681;
+    --rule:#29312D; --rule-2:#3A433E;
+    --accent:#6FBFAC; --accent-soft:#142B26;
+    --brass:#D6AC5E; --brass-soft:#2C2413;
+    --alert:#E08D75; --alert-soft:#301B15;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans",system-ui,sans-serif;
+    font-size:15.5px; line-height:1.95; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:48px 22px 90px;display:flex;flex-direction:column;gap:40px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  /* ---- header ---- */
+  header.doc{border-bottom:2px solid var(--ink);padding-bottom:22px}
+  .to{font-size:13px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:14px}
+  h1{font-family:"Zen Old Mincho",serif;font-weight:700;font-size:clamp(24px,4.4vw,31px);
+     line-height:1.45;margin:0;letter-spacing:.01em;text-wrap:balance}
+  .sub{color:var(--ink-2);font-size:14px;margin:10px 0 0}
+  .facts{display:grid;gap:8px;margin-top:20px;font-size:13.5px}
+  .facts div{display:grid;grid-template-columns:82px 1fr;gap:12px}
+  .facts dt{color:var(--ink-3);font-size:12.5px;letter-spacing:.06em;padding-top:2px}
+  .facts dd{margin:0;color:var(--ink-2)}
+
+  /* ---- section ---- */
+  section{display:flex;flex-direction:column;gap:16px}
+  .shead{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:9px}
+  .shead .no{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500;letter-spacing:.1em}
+  h2{font-family:"Zen Old Mincho",serif;font-weight:700;font-size:19px;margin:0;line-height:1.5;text-wrap:balance}
+  .lede{color:var(--ink-2);font-size:14px;margin:0}
+
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+        padding:20px 22px;box-shadow:var(--shadow)}
+  .card + .card{margin-top:-4px}
+  h3{font-size:15.5px;font-weight:700;margin:0 0 8px;line-height:1.6}
+  h3 .who{font-size:12px;font-weight:500;color:var(--accent);background:var(--accent-soft);
+          padding:2px 9px;border-radius:999px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+  p{margin:0 0 10px}
+  p:last-child{margin-bottom:0}
+  ul,ol{margin:8px 0 0;padding-left:1.25em}
+  li{margin:6px 0}
+  li::marker{color:var(--accent)}
+  b,strong{font-weight:700}
+
+  /* ---- numbers ---- */
+  .nums{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.nums{grid-template-columns:1fr}}
+  .num{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+  .num .k{font-size:12px;color:var(--ink-3);letter-spacing:.06em}
+  .num .v{font-family:"Zen Old Mincho",serif;font-weight:700;font-size:25px;line-height:1.25;margin-top:4px;font-variant-numeric:tabular-nums}
+  .num .v.goal{color:var(--brass)}
+  .num .s{font-size:12.5px;color:var(--ink-2);margin-top:5px;line-height:1.7}
+
+  /* ---- quote ---- */
+  .say{margin-top:12px;padding:14px 16px;border-left:3px solid var(--accent);
+       background:var(--surface-2);border-radius:0 8px 8px 0;font-size:14px;color:var(--ink-2)}
+  .say b{color:var(--ink)}
+  .say .lbl{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:4px}
+
+  /* ---- step dialogue ---- */
+  .dlg{display:flex;flex-direction:column;gap:6px;margin-top:10px;font-size:13.8px}
+  .dlg .q{color:var(--ink-2)}
+  .dlg .a{color:var(--ink-3);padding-left:1.1em}
+  .dlg .hit{color:var(--ink);font-weight:500;background:var(--brass-soft);padding:9px 12px;border-radius:7px}
+
+  /* ---- table ---- */
+  .scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface);box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:420px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.08em;color:var(--ink-3);font-weight:500;
+     background:var(--surface-2);border-bottom:1px solid var(--rule-2);white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+  .plan{display:inline-block;font-family:"Zen Old Mincho",serif;font-weight:700;font-size:15px;
+        width:1.9em;text-align:center;border-radius:5px;margin-right:2px}
+  .plan.sho{background:var(--brass-soft);color:var(--brass)}
+  .plan.chiku{background:var(--accent-soft);color:var(--accent)}
+  .plan.bai{background:var(--surface-2);color:var(--ink-2)}
+
+  /* ---- decisions / actions ---- */
+  .dec{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .dec:last-child{border-bottom:none}
+  .dec .n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+          background:var(--accent);color:var(--surface);font-family:"IBM Plex Mono",monospace;
+          font-size:12px;font-weight:500;margin-top:3px}
+  .dec b{display:block;font-size:14.5px}
+  .dec span{display:block;color:var(--ink-2);font-size:13.5px;margin-top:2px}
+
+  .owner{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;white-space:nowrap;font-weight:500}
+  .owner.raise{background:var(--brass-soft);color:var(--brass)}
+  .owner.rsx{background:var(--accent-soft);color:var(--accent)}
+
+  /* ---- next ---- */
+  .next{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+        border-radius:10px;padding:20px 22px}
+  .next h3{color:var(--accent)}
+  .next ul{margin-top:6px}
+
+  .closing{text-align:center;padding:26px 20px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .closing .q{font-family:"Zen Old Mincho",serif;font-size:19px;font-weight:700;line-height:1.7;text-wrap:balance}
+  .closing .by{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+
+  footer{color:var(--ink-3);font-size:12.5px;text-align:center;line-height:2}
+
+  @media print{
+    body{background:#fff;font-size:11.5px}
+    .wrap{padding:0;gap:26px;max-width:none}
+    .card,.scroll,.num,.next{box-shadow:none;break-inside:avoid}
+    section{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <div class="to">株式会社Raise 御中</div>
+    <h1>営業コンサルティング 議事録<br>― 訪問単価の引き上げに向けて（初回）</h1>
+    <p class="sub">初回の顔合わせとして、現状の共有と、当日決め切るための具体的な話法を中心にお話ししました。本書はその記録です。</p>
+    <dl class="facts">
+      <div><dt>開催日</dt><dd>2026年9月11日</dd></div>
+      <div><dt>貴社</dt><dd>岡田 康平 様（代表）／ 片山 様</dd></div>
+      <div><dt>弊社</dt><dd>山下（第一営業部長）／ 宮原 ／ 小嶋（窓口）</dd></div>
+      <div><dt>テーマ</dt><dd>訪問単価の引き上げ</dd></div>
+    </dl>
+  </header>
+
+  <!-- 01 -->
+  <section>
+    <div class="shead"><span class="no">01</span><h2>現状と目標</h2></div>
+    <div class="nums">
+      <div class="num">
+        <div class="k">現在の訪問単価</div>
+        <div class="v">3.3〜4.2<span style="font-size:15px">万円</span></div>
+        <div class="s">2名平均・税込。5万円に乗るのは100〜150万円規模の案件が出たときに限られる。</div>
+      </div>
+      <div class="num">
+        <div class="k">当面の目標</div>
+        <div class="v goal">4.5<span style="font-size:15px">万円</span></div>
+        <div class="s">5万円を超えれば、会社の存続と片山様の給与が安定する水準に入る。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>業種別の体感（再訪問を含む）</h3>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>業種</th><th class="r">単価の体感</th><th>比重</th></tr></thead>
+          <tbody>
+            <tr><td>鳩</td><td class="r">6〜7万円</td><td>夏場の主力</td></tr>
+            <tr><td>蜂駆除</td><td class="r">3万円弱</td><td>—</td></tr>
+            <tr><td>ガラス</td><td class="r">2万円台</td><td>鍵とあわせて現在のメイン</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">同じような業種構成で、当初3〜4万円台だった訪問単価を7万円近くまで引き上げた事例があります。<b>業種の組み合わせとしては6万円超を狙える余地がある</b>、というのが弊社側の見立てです。</p>
+    </div>
+    <div class="card">
+      <h3>岡田様の課題認識</h3>
+      <p>技術と経験は十分にある一方で、<b>営業が凝り固まってしまい、新しい営業ができていない</b>。自社で完結していた頃と、外注として動くようになってからとで、単価の当て方が変わってしまった。</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section>
+    <div class="shead"><span class="no">02</span><h2>今回お伝えした営業ノウハウ</h2></div>
+    <p class="lede">いずれも「当日どれだけ決め切れるか」に効く話です。後日戻ってくる確率は、体感で0.1%程度という前提に立っています。</p>
+
+    <div class="card">
+      <h3>1. 「一旦考えます」「◯◯に相談します」への返し<span class="who">宮原</span></h3>
+      <p><b>何を考えるのかを具体的に聞く</b>のが起点です。金額なのか、納期なのか、作業内容なのか。第三者への相談が必要なら、決裁権のある方と直接話をさせてもらいます。</p>
+      <p>基本は当日決め切るために何が必要かを察すること。後押しとして「当日ならこのくらいお値引きできます」も有効です。</p>
+    </div>
+
+    <div class="card">
+      <h3>管理会社を出されたときの返し<span class="who">山下</span></h3>
+      <p>個人的には、<b>管理会社に連絡させない方が勝ちです。</b>ただし頭ごなしに止めず、まず「全然、確認されるのは大丈夫ですよ」と一度受け入れてから、こう続けます。</p>
+      <div class="say">
+        <span class="lbl">言い回しの例</span>
+        管理会社に連絡すると、管理会社お抱えの業者が来ます。管理会社からしたら何の旨みもないので、<b>いわゆる中抜きでマージンを取られてしまう。</b>どうしても金額はお客様にとっていい話にならない、というのがこの業界のあるあるなんです。
+      </div>
+      <p style="margin-top:12px">それでも心配だと言われたら、そこは引きます。ここで管理会社から切り離せれば、こちらに引き寄せられます。</p>
+    </div>
+
+    <div class="card">
+      <h3>そもそも出させない「先回り潰し」<span class="who">山下</span></h3>
+      <p>管理会社が出てきそうな現場は、事前にある程度わかります（賃貸物件の鳩・ガラスなど）。そうした現場では<b>ヒアリングの段階から先にジャブを打っておきます。</b></p>
+      <div class="say">
+        <span class="lbl">言い回しの例</span>
+        そもそもご依頼の<b>8割ぐらいが賃貸からのご依頼</b>なんですよね。
+      </div>
+      <p style="margin-top:12px">こう置いておくことで、「賃貸だから管理会社に」というワードを先に潰せます。</p>
+      <div class="say" style="border-left-color:var(--brass)">
+        <span class="lbl" style="color:var(--brass)">岡田様</span>
+        先に潰すというのは、やったことがなかった。今の言い回しなら納得できるので、試してみたい。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2. ヒアリング段階の「ネガティブ返し」<span class="who">山下・宮原</span></h3>
+      <p>やり方は2ステップです。</p>
+      <ol>
+        <li><b>その回答を引き出すための質問をする</b>（現場を見れば、返ってくる答えは大体予想できます）</li>
+        <li><b>返ってきた答えに対して、その状況で訪れる不安な未来を会話に挟む</b></li>
+      </ol>
+      <div class="dlg">
+        <span class="q">蜂の例 ──「いつ気づかれました？」</span>
+        <span class="a">「3日前です」</span>
+        <span class="hit">3日前から放置してたんですか。昨日のお客様なんて、旦那様が刺されて救急車で運ばれましたよ。早めに駆除した方がいいですね。</span>
+      </div>
+      <div class="dlg" style="margin-top:14px">
+        <span class="q">鍵の例 ──「いつなくされたんですか？」</span>
+        <span class="a">「1週間前です」</span>
+        <span class="hit">→ その状況で訪れる不安な未来を、同じように挟む</span>
+      </div>
+      <div class="say" style="margin-top:14px">
+        <span class="lbl">要点</span>
+        金額提示の理由やタイミングも大事ですが、それ以前に<b>ヒアリング段階でお客様を「こちらの提案が刺さるマインド」に持っていけるか</b>です。10万円で納得していただくための危機感は、ヒアリングの時点で作っておきます。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3. 「取れない現場」への向き合い方<span class="who">宮原</span></h3>
+      <p>貴社の現状として、メール上「当日なし」が4〜5割。当日なしを取り切ろうとするあまり、<b>欲しい金額より3割安く提示してしまう癖</b>がついている。対策として「メールを見ない」も試したが、内容を見ると行く前からネガティブになり、警戒して言いたいことが言えない・焦って早く言ってしまう——というお話でした。これに対して：</p>
+      <ul>
+        <li>外国人のお客様も法人も、<b>普通の日本人だと思って入る</b>。こちらがネガティブなまま営業に入らない</li>
+        <li>当日希望なしでも<b>「今日やるよね」ぐらいの前提で進める</b>。拒絶されたら「当日なしって言ってたな」と片隅に置く程度でいい</li>
+        <li>言葉が通じない相手には金額しか伝わらないので、<b>「とりあえずゼロはやめよう」</b>と決める。利益が出る下限を自分で把握したうえで、そこまで下げる気で高めから落としていき、ゼロだけは避ける</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>4. 金額提示 ── 松竹梅か、積み上げ式か<span class="who">宮原・山下</span></h3>
+      <p><b>松竹梅（ガラスの例）</b></p>
+      <div class="scroll" style="margin-top:8px">
+        <table>
+          <thead><tr><th>プラン</th><th>内容</th><th class="r">金額例</th></tr></thead>
+          <tbody>
+            <tr><td><span class="plan sho">松</span></td><td>F6Kに変更（防犯性を上げる）</td><td class="r">10万円</td></tr>
+            <tr><td><span class="plan chiku">竹</span></td><td>F4Kガラス交換＋ビード交換コミコミ</td><td class="r">8万円</td></tr>
+            <tr><td><span class="plan bai">梅</span></td><td>F4Kガラス交換</td><td class="r">5万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px"><b>梅を「最低欲しい金額」に設定</b>します。そして金額提示の前に「この状況で割れているなら、分厚くして防犯性を上げないとまずいですよ」と伝え、F6系へ誘導しておきます。</p>
+      <p><b>積み上げ式</b>　基本はガラス代からご案内し、「大体4.5〜5万かな、6万前後かな」とジャブを打つ。その反応を見て、込みにするか、施工費・出張費を乗せていくかを判断します。</p>
+      <div class="say">
+        <span class="lbl">選び方について（山下）</span>
+        <b>単価か成約率かなら、圧倒的に単価です。</b>成約率はすぐ上げられますし、技術はお二人とも持っていますから。<br><br>
+        ただし<b>積み上げ式は、メンタルを常に強靭に保つ必要があります。</b>渋い現場が10件20件と続くと、本来なら取れるお客様にも慌ててしまう。<br><br>
+        松竹梅なら「<b>梅でも30万以上を提案する</b>」と決めておけば、どの現場でも30〜40万円の内容を構築せざるを得ないので、メンタルのブレがなくなります。<b>どちらが継続性を持ってやれるか</b>で決めていただくのがよいと思います。
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section>
+    <div class="shead"><span class="no">03</span><h2>決定したこと</h2></div>
+    <div class="card">
+      <div class="dec">
+        <span class="n">1</span>
+        <div>
+          <b>貴社の営業録音を共有いただき、弊社でフィードバックします</b>
+          <span>岡田様・片山様の営業録音をお送りいただき、山下・宮原が聞いたうえで、具体的な言い回しを指摘します。</span>
+          <div class="say" style="margin-top:10px;border-left-color:var(--brass)">
+            <span class="lbl" style="color:var(--brass)">岡田様</span>
+            単価を上げることしか考えていないので、指摘は全部プラスになります。
+          </div>
+        </div>
+      </div>
+      <div class="dec">
+        <span class="n">2</span>
+        <div>
+          <b>次回までに、双方が準備してから臨みます</b>
+          <span>貴社は現場で感じた疑問を溜めておいていただく。弊社は録音を聞いたうえでの指摘と回答を準備します。</span>
+        </div>
+      </div>
+      <div class="dec">
+        <span class="n">3</span>
+        <div>
+          <b>開催頻度は2週間〜1ヶ月に1回</b>
+          <span>毎週だと双方に重たいため。日程は弊社から候補を複数お送りし、貴社のご都合に合わせます。（岡田様「本音では毎日したい」）</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section>
+    <div class="shead"><span class="no">04</span><h2>アクションプラン</h2></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>No.</th><th>内容</th><th>担当</th><th>期限</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>営業録音を弊社へ送付</td><td><span class="owner raise">貴社</span></td><td>次回まで</td></tr>
+          <tr><td>2</td><td>次回への質問を準備（現場で感じたことを溜める）</td><td><span class="owner raise">貴社</span></td><td>次回まで</td></tr>
+          <tr><td>3</td><td>管理会社の先回り潰し・ネガティブ返しを実践</td><td><span class="owner raise">貴社</span></td><td>随時</td></tr>
+          <tr><td>4</td><td>録音を聞いてフィードバックを準備</td><td><span class="owner rsx">弊社</span></td><td>次回まで</td></tr>
+          <tr><td>5</td><td>次回日程の候補を複数送付・調整</td><td><span class="owner rsx">弊社</span></td><td>早めに</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section>
+    <div class="shead"><span class="no">05</span><h2>次回、確認すること</h2></div>
+    <div class="next">
+      <h3>アジェンダ（予定）</h3>
+      <ul>
+        <li>録音を聞いたうえでのフィードバック（具体的な言い回しの指摘）</li>
+        <li>「管理会社の先回り潰し」を試した結果</li>
+        <li><b>松竹梅と積み上げ式、どちらで行くかの方針決め</b></li>
+        <li>訪問単価の推移（目標4.5万円に対して）</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="closing">
+    <p class="q">「マックスが5万ぐらいなら、いけると思います。<br>上がるしかないので」</p>
+    <p class="by">― 山下（第一営業部長）／ 初回の締めくくりに</p>
+  </div>
+
+  <footer>
+    株式会社Raise 様　営業コンサルティング 議事録（初回）<br>
+    2026年9月11日 実施　／　記録・作成：小嶋
+  </footer>
+
+</div>
+</body>
+</html>
